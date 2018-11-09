@@ -1,9 +1,11 @@
-// Programação III - 2018 / 2 Trab-2
-//
-// Alan Herculano Diniz
-// Rafael Belmock Pedruzzi
-//
-// candidate.h: candidate class definitions
+/**
+ * Prog3-2018-2-Trab2: Reading a CSV file with data about Brazilian elections in C++
+ *
+ * Alan Herculano Diniz
+ * Rafael Belmock Pedruzzi
+ *
+ * candidate.h: candidate class definition file
+ */
 
 #ifndef CANDIDATE_H_
 

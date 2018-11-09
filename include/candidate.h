@@ -19,13 +19,14 @@ class Party;
 
 class Candidate
 {
+private:
     string name;
     Party *party;
     int votes;
     string percent;
     bool elected;
 
-  public:
+public:
     const string &getName() const;
     void setName(const string &name);
     const Party &getParty() const;

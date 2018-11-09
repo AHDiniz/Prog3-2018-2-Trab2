@@ -20,12 +20,13 @@ class Candidate;
 
 class Party
 {
+private:
     string coalition;
     string name;
     int votes;
     set<Candidate *> candidates;
 
-  public:
+public:
     const string &getCoalition() const;
     void setCoalition(const string &coalition);
     const string &getName() const;

@@ -1,0 +1,123 @@
+\documentclass[oneside]{abntex2}
+
+
+\usepackage[utf8]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage{makeidx}
+\usepackage{times}
+\usepackage[T1]{fontenc}
+\usepackage{enumerate}
+\usepackage{fancyvrb}
+\usepackage{graphicx}
+\usepackage{indentfirst}
+\usepackage{helvet}
+\usepackage[verbose,a4paper,tmargin=3cm,bmargin=2cm,lmargin=3cm,rmargin=2cm]{geometry}
+\usepackage[mmddyyyy,24hr]{datetime}
+
+\title{Segundo Trabalho de Implementação}
+\autor{Alan Herculano Diniz \\ Rafael Belmock Perduzzi}
+\local{Vitória}
+\data{	\today}
+\preambulo{Relatório referente ao segundo trabalho de implementação da disciplina Programação III do curso de Ciência da Computação. UFES, Campus de Goiabeiras - Vitória. Professor: João Paulo Almeida}
+\instituicao{UNIVERSIDADE FEDERAL DO ESPÍRITO SANTO}
+
+% Redefinindo formato da capa
+\renewcommand{\imprimircapa}{
+	\begin{capa}
+		\center
+
+		\ABNTEXchapterfont\large UNIVERSIDADE FEDERAL DO ESPÍRITO SANTO \\ CENTRO TECNOLÓGICO \\ DEPARTAMENTO DE INFORMÁTICA
+
+		\vfill
+		\begin{center}
+		\ABNTEXchapterfont\bfseries\LARGE\imprimirtitulo
+		\end{center}
+		\vfill
+
+		\ABNTEXchapterfont\large\imprimirautor
+		\vfill
+
+		\large\imprimirlocal
+
+		\large\imprimirdata
+
+		\vspace*{1cm}
+	\end{capa}
+}
+
+% Redefinindo formato da folha de rosto
+\makeatletter
+\renewcommand{\folhaderostocontent}{
+	\begin{center}
+
+		{\abntex@ifnotempty{\imprimirinstituicao}{UNIVERSIDADE FEDERAL DO ESPÍRITO SANTO \\ CENTRO TECNOLÓGICO \\ DEPARTAMENTO DE INFORMÁTICA
+		\vspace*{\fill}}}
+
+		{\ABNTEXchapterfont\large\imprimirautor}
+
+		\vspace*{\fill}
+		\begin{center}
+		\ABNTEXchapterfont\bfseries\Large\imprimirtitulo
+		\end{center}
+		\vspace*{\fill}
+
+		\abntex@ifnotempty{\imprimirpreambulo}{%
+			\hspace{.45\textwidth}
+			\begin{minipage}{.5\textwidth}
+				\SingleSpacing
+				\imprimirpreambulo
+			\end{minipage}%
+			\vspace*{\fill}
+		}
+
+		{\large\imprimirorientadorRotulo~\imprimirorientador\par}
+		\abntex@ifnotempty{\imprimircoorientador}{%
+		{\large\imprimircoorientadorRotulo~\imprimircoorientador}%
+		}
+		\vspace*{\fill}
+
+		{\large\imprimirlocal}
+		\par
+		{\large\imprimirdata}
+		\vspace*{1cm}
+
+	\end{center}
+}
+\makeatother
+
+
+\begin{document}
+
+	\imprimircapa
+	\imprimirfolhaderosto
+
+	\begin{resumo}
+	Resumo aqui.
+	\end{resumo}
+
+	\tableofcontents
+	\newpage
+
+	\textual
+
+	\chapter*{Introdução}
+	\addcontentsline{toc}{chapter}{Introdução}
+
+	Intro aqui.
+
+
+	\chapter{Desenvolvimento}
+
+	Texto aq.
+
+
+	\chapter{Considerações Finais}
+
+	Aqui.
+
+
+	\begin{thebibliography}{5}
+	\bibitem{tag} Autor, Nome do, \textit{Nome da obra.}
+	\end{thebibliography}
+
+\end{document}

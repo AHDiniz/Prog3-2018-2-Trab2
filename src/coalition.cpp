@@ -11,6 +11,8 @@
 #include "../include/party.h"
 #include "../include/candidate.h"
 
+using namespace std;
+
 const string &Coalition::getName() const
 {
     return this->name;
@@ -38,5 +40,16 @@ const set<Party *> &Coalition::getParties() const
 
 void Coalition::addCandidate(const string &name, const string &party, const int &votes, const string &percent, const bool &elected)
 {
-    
+    this->votes++;
+
+    for (Party *p : this->parties)
+    {
+        if (p->getName().compare(party) == 0)
+        {
+            Candidate c;
+            p->addCandidate(c);
+            return;
+        }
+    }
+    // TODO: Create a party and add the candidate
 }

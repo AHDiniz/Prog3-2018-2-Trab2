@@ -9,6 +9,15 @@
 
 #include "../include/candidate.h"
 
+Candidate::Candidate(const string &name, Party &party, int votes, const string &percent, bool elected)
+{
+    this->name = name;
+    this->party = party;
+    this->votes = votes;
+    this->percent = percent;
+    this->elected = elected;
+}
+
 const string &Candidate::getName() const
 {
     return name;

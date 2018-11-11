@@ -22,19 +22,37 @@ class Candidate;
 
 class Party
 {
-    string coalition;
-    string name;
-    int votes=0;
-    set<Candidate *> candidates;
+    string coalition; // The name of the party's coalition
+    string name; // The name of the party
+    int votes = 0; // The amount of votes of the party
+    set<Candidate *> candidates; // The candidates of the party
 
 public:
+    /**
+     * Party's constructor:
+     * 
+     * Inputs: the party's name and coalition
+     * Output: a new party object
+     * Conditions: none
+     * Side effects: new party created, dynamically if new is used
+     */
+    Party(const string &name, const string &coalition);
+
+    // Coalition name getter:
     const string &getCoalition() const;
+    // Coalition name setter:
     void setCoalition(const string &coalition);
+    // Name getter:
     const string &getName() const;
+    // Name setter:
     void setName(const string &name);
+    // Votes getter:
     const int getVotes() const;
+    // Votes setter:
     void setVotes(const int votes);
+    // Candidates set getter:
     const set<Candidate *> &getCandidates() const;
+    // Adding a candidate to the set
     void addCandidate(Candidate &candidate);
 };
 

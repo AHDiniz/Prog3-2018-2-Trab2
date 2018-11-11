@@ -11,6 +11,12 @@
 
 #include "../include/party.h"
 
+Party::Party(const string &name, const string &coalition)
+{
+    this->name = name;
+    this->coalition = coalition;
+}
+
 const string &Party::getCoalition() const
 {
     return this->coalition;

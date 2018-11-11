@@ -18,7 +18,6 @@ class Party;
 
 class Coalition
 {
-private:
     string name;
     set<Party *> parties;
     int votes;

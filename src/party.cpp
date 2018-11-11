@@ -49,5 +49,6 @@ const set<Candidate *> &Party::getCandidates() const
 void Party::addCandidate(Candidate &candidate)
 {
     candidates.insert(&candidate);
+    votes += candidate.getVotes;
     candidate.setParty(*this);
 }

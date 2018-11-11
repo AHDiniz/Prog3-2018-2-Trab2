@@ -7,7 +7,7 @@
  * candidate.cpp: candidate class implementation file
  */
 
-#include "../imclude/candidate.h"
+#include "../include/candidate.h"
 
 const string &Candidate::getName() const
 {

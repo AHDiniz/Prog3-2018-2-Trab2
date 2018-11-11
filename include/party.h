@@ -22,10 +22,9 @@ class Candidate;
 
 class Party
 {
-private:
     string coalition;
     string name;
-    int votes;
+    int votes=0;
     set<Candidate *> candidates;
 
 public:

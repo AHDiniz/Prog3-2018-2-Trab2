@@ -21,9 +21,8 @@ class Party;
 
 class Candidate
 {
-private:
     string name;
-    Party *party;
+    Party &party;
     int votes;
     string percent;
     bool elected;

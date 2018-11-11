@@ -29,7 +29,7 @@ public:
     const int &getVotes() const;
     void setVotes(const int &votes);
     const set<Party *> &getParties() const;
-    void addCandidate(const string &name, const string &party, const int &votes, const string &percent, const bool &elected);
+    void addCandidate(const string &name, const string &party, const int votes, const string &percent, const bool elected);
     const string &toString() const;
 };
 

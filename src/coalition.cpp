@@ -38,7 +38,7 @@ const set<Party *> &Coalition::getParties() const
     return this->parties;
 }
 
-void Coalition::addCandidate(const string &name, const string &party, const int &votes, const string &percent, const bool &elected)
+void Coalition::addCandidate(const string &name, const string &party, const int votes, const string &percent, const bool elected)
 {
     this->votes++;
 
@@ -46,10 +46,13 @@ void Coalition::addCandidate(const string &name, const string &party, const int 
     {
         if (p->getName().compare(party) == 0)
         {
-            Candidate c;
+            Candidate c(name, party, votes, percent, elected);
             p->addCandidate(c);
             return;
         }
     }
-    // TODO: Create a party and add the candidate
+    Party p(party, this->name);
+    Candidate c(name, party, votes, percent, elected);
+    p.addCandidate(c);
+    this->parties.insert(p);
 }

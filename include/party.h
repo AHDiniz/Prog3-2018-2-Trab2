@@ -12,7 +12,7 @@
 #define PARTY_H_
 
 #include <string>
-#include <set>
+#include <unordered_set>
 
 #include "candidate.h"
 
@@ -22,12 +22,12 @@ class Candidate;
 
 class Party
 {
-    string coalition; // The name of the party's coalition
-    string name; // The name of the party
-    int votes = 0; // The amount of votes of the party
-    set<Candidate *> candidates; // The candidates of the party
+    string coalition;            // The name of the party's coalition
+    string name;                 // The name of the party
+    int votes = 0;               // The amount of votes of the party
+    unordered_set<Candidate *> *candidates; // The candidates of the party
 
-public:
+  public:
     /**
      * Party's constructor:
      * 
@@ -37,6 +37,8 @@ public:
      * Side effects: new party created, dynamically if new is used
      */
     Party(const string &name, const string &coalition);
+
+    Party(const Party &p);
 
     // Coalition name getter:
     const string &getCoalition() const;
@@ -51,9 +53,11 @@ public:
     // Votes setter:
     void setVotes(const int votes);
     // Candidates set getter:
-    const set<Candidate *> &getCandidates() const;
-    // Adding a candidate to the set
+    const unordered_set<Candidate *> &getCandidates() const;
+    // Adding a candidate to the set:
     void addCandidate(Candidate &candidate);
+
+    ~Party() { if(candidates != NULL) delete candidates; }
 };
 
 #endif

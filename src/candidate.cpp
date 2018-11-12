@@ -11,11 +11,20 @@
 
 Candidate::Candidate(const string &name, Party &party, int votes, const string &percent, bool elected)
 {
-    this->name = name;
-    this->party = party;
-    this->votes = votes;
-    this->percent = percent;
-    this->elected = elected;
+    this->setName(name);
+    this->setParty(party);
+    this->setVotes(votes);
+    this->setPercent(percent);
+    this->setElected(elected);
+}
+
+Candidate::Candidate(Candidate &c)
+{
+    this->setName(c.getName());
+    this->setParty(c.getParty());
+    this->setVotes(c.getVotes());
+    this->setPercent(c.getPercent());
+    this->setElected(c.getElected());
 }
 
 const string &Candidate::getName() const
@@ -30,12 +39,16 @@ void Candidate::setName(const string &name)
 
 const Party &Candidate::getParty() const
 {
-    return party;
+    return *party;
 }
 
 void Candidate::setParty(const Party &party)
 {
-    this->party = party;
+    if(this->party != NULL)
+    {
+        delete this->party;
+    }
+    this->party = new Party(party);
 }
 
 const int Candidate::getVotes() const

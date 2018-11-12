@@ -22,7 +22,7 @@ class Party;
 class Candidate
 {
     string name; // The candidate's name
-    Party &party; // The candidate's party
+    Party *party; // The candidate's party
     int votes; // The amount of votes
     string percent; // The percentage of valid votes
     bool elected; // Tells if the candidate was elected or not
@@ -37,6 +37,8 @@ public:
      * Side effects: a new Candidate is created, dynamically if new is used
      */
     Candidate(const string &name, Party &party, int votes, const string &percent, bool elected);
+
+    Candidate(Candidate &c);
 
     // Candidate's name getter:
     const string &getName() const;
@@ -58,6 +60,8 @@ public:
     const bool getElected() const;
     // Candidate's elected bool setter:
     void setElected(const bool elected);
+
+    ~Candidate() { delete party; }
 };
 
 #endif

@@ -12,7 +12,7 @@
 #define COALITION_H_
 
 #include <string>
-#include <set>
+#include <unordered_set>
 #include "../include/party.h"
 
 class Party;
@@ -20,17 +20,21 @@ class Party;
 class Coalition
 {
     string name;
-    set<Party *> parties;
+    unordered_set<Party *> *parties;
     int votes;
 
 public:
+    Coalition(int v=0);
+
     const string &getName() const; 
     void setName(const string &name);
     const int &getVotes() const;
     void setVotes(const int &votes);
-    const set<Party *> &getParties() const;
+    const unordered_set<Party *> &getParties() const;
     void addCandidate(const string &name, const string &party, const int votes, const string &percent, const bool elected);
     const string &toString() const;
+
+    ~Coalition() { delete parties; }
 };
 
 #endif // COALITION_H_

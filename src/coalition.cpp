@@ -7,11 +7,19 @@
  * coalition.cpp: coalition class implementation file
  */
 
+#include <algorithm>
+
 #include "../include/coalition.h"
 #include "../include/party.h"
 #include "../include/candidate.h"
 
 using namespace std;
+
+Coalition::Coalition(int v)
+{
+    votes = v;
+    parties = new unordered_set<Party *>();
+}
 
 const string &Coalition::getName() const
 {
@@ -33,26 +41,26 @@ void Coalition::setVotes(const int& votes)
     this->votes = votes;
 }
 
-const set<Party *> &Coalition::getParties() const
+const unordered_set<Party *> &Coalition::getParties() const
 {
-    return this->parties;
+    return *parties;
 }
 
 void Coalition::addCandidate(const string &name, const string &party, const int votes, const string &percent, const bool elected)
 {
-    this->votes++;
+    this->votes += votes;
 
-    for (Party *p : this->parties)
+    for (Party *p : *parties)
     {
-        if (p->getName().compare(party) == 0)
+        if (party._Equal(p->getName()))
         {
-            Candidate c(name, party, votes, percent, elected);
+            Candidate c(name, *p, votes, percent, elected);
             p->addCandidate(c);
             return;
         }
     }
     Party p(party, this->name);
-    Candidate c(name, party, votes, percent, elected);
+    Candidate c(name, p, votes, percent, elected);
     p.addCandidate(c);
-    this->parties.insert(p);
+    parties->insert(&p);
 }

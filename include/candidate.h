@@ -37,8 +37,8 @@ public:
      * Side effects: a new Candidate is created, dynamically if new is used
      */
     Candidate(const string &name, Party &party, int votes, const string &percent, bool elected);
-
     Candidate(Candidate &c);
+    ~Candidate() { delete party; }
 
     // Candidate's name getter:
     const string &getName() const;
@@ -60,8 +60,6 @@ public:
     const bool getElected() const;
     // Candidate's elected bool setter:
     void setElected(const bool elected);
-
-    ~Candidate() { delete party; }
 };
 
 #endif

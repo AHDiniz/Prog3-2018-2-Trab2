@@ -25,6 +25,7 @@ class Coalition
 
 public:
     Coalition(int v=0);
+    ~Coalition() { delete parties; }
 
     const string &getName() const; 
     void setName(const string &name);
@@ -33,8 +34,6 @@ public:
     const unordered_set<Party *> &getParties() const;
     void addCandidate(const string &name, const string &party, const int votes, const string &percent, const bool elected);
     const string &toString() const;
-
-    ~Coalition() { delete parties; }
 };
 
 #endif // COALITION_H_

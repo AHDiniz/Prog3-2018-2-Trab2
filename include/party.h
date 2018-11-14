@@ -37,6 +37,7 @@ public:
      * Side effects: new party created, dynamically if new is used
      */
     Party(const string &name, const string &coalition);
+    Party();
     Party(const Party &p);
     ~Party()
     {

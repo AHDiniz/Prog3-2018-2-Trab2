@@ -13,16 +13,21 @@
 
 Party::Party(const string &name, const string &coalition)
 {
-    this->name = name;
-    this->coalition = coalition;
+    this->setName(name);
+    this->setCoalition(coalition);
+    candidates = new unordered_set<Candidate *>();
+}
+
+Party::Party()
+{
     candidates = new unordered_set<Candidate *>();
 }
 
 Party::Party(const Party &p)
 {
-    name = p.name;
-    votes = p.votes;
-    coalition = p.coalition;
+    this->setName(p.name);
+    this->setVotes(p.votes);
+    this->setCoalition(p.coalition);
 }
 
 const string &Party::getCoalition() const

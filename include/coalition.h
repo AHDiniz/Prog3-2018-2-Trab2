@@ -15,6 +15,8 @@
 #include <unordered_set>
 #include "../include/party.h"
 
+using namespace std;
+
 class Party;
 
 class Coalition

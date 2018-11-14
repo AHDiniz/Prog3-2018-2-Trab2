@@ -18,6 +18,13 @@ Candidate::Candidate(const string &name, Party &party, int votes, const string &
     this->setElected(elected);
 }
 
+Candidate::Candidate(int v, const string p, bool e)
+{
+    this->setVotes(v);
+    this->setPercent(p);
+    this->setElected(e);
+}
+
 Candidate::Candidate(Candidate &c)
 {
     this->setName(c.getName());
@@ -79,4 +86,19 @@ const bool Candidate::getElected() const
 void Candidate::setElected(const bool elected)
 {
     this->elected = elected;
+}
+
+stringstream Candidate::toString()
+{
+    stringstream ret;
+    ret << name << " (" << party->getName() << ", " << votes << " votos)";
+
+    Party p = this->getParty;
+    string c = p.getCoalition;
+    if(p.getName() != c)
+    {
+        ret << " - Coligação: " << c;
+    }
+
+    return ret;
 }

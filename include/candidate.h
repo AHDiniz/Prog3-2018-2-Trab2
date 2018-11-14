@@ -12,6 +12,7 @@
 #define CANDIDATE_H_
 
 #include <string>
+#include <sstream>
 
 #include "party.h"
 
@@ -37,6 +38,7 @@ public:
      * Side effects: a new Candidate is created, dynamically if new is used
      */
     Candidate(const string &name, Party &party, int votes, const string &percent, bool elected);
+    Candidate(int v = 0, const string p = "0%", bool e = false);
     Candidate(Candidate &c);
     ~Candidate() { delete party; }
 
@@ -60,6 +62,7 @@ public:
     const bool getElected() const;
     // Candidate's elected bool setter:
     void setElected(const bool elected);
+    stringstream toString();
 };
 
 #endif

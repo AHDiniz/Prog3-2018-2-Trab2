@@ -62,7 +62,8 @@ public:
     const bool getElected() const;
     // Candidate's elected bool setter:
     void setElected(const bool elected);
-    stringstream toString();
+    string toString();
+    static bool compare(const Candidate &a, const Candidate &b);
 };
 
 #endif

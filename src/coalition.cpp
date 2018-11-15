@@ -13,8 +13,6 @@
 #include "../include/party.h"
 #include "../include/candidate.h"
 
-using namespace std;
-
 Coalition::Coalition(int v)
 {
     votes = v;
@@ -63,4 +61,9 @@ void Coalition::addCandidate(const string &name, const string &party, const int 
     Candidate c(name, p, votes, percent, elected);
     p.addCandidate(c);
     parties->insert(&p);
+}
+
+static bool compare(const Coalition &a, const Coalition &b)
+{
+    return a.getVotes() > b.getVotes();
 }

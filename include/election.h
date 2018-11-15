@@ -11,22 +11,20 @@
 
 #define ELECTION_H_
 
-#include <unordered_map>
-#include <list>
+#include <map>
+#include <vector>
 #include <string>
 #include "coalition.h"
+#include "party.h"
 #include "candidate.h"
 
 using namespace std;
 
-class Coalition;
-class Candidate;
-
 class Election
 {
 private:
-    unordered_map<string *, Coalition *> coalitions; // Map with every coalition in the election
-    vector<Candidate *> mostVoted; // List of candidates ordered by the number of votes
+    map<string *, Coalition *> *coalitions; // Map with every coalition in the election
+    vector<Candidate *> *mostVoted; // List of candidates ordered by the number of votes
     int vacancies; // Number of vacant positions/elected candidates
 
 public:
@@ -37,8 +35,17 @@ public:
      * Output: an election object
      * Conditions: if new is used, remember to destroy the structure
      */
-    Election(const unordered_map<string *, Coalition *> &coalitions, const int vacancies);
-    ~Election(); // Election destructor
+    Election(map<string *, Coalition *> *coalitions, const int vacancies);
+    ~Election() { delete coalitions; delete mostVoted; } // Election destructor
+
+    string numberOfVacancies() const;
+    string electedCandidates() const;
+    string mostVotedCandidates() const;
+    string electedByMajority() const;
+    string electedByProportion() const;
+    string votesByCoalition() const;
+    string votesByParty() const;
+    int amountOfVotes() const;
 };
 
 #endif // ELECTION_H_

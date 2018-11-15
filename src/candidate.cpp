@@ -88,7 +88,7 @@ void Candidate::setElected(const bool elected)
     this->elected = elected;
 }
 
-stringstream Candidate::toString()
+string Candidate::toString()
 {
     stringstream ret;
     ret << name << " (" << party->getName() << ", " << votes << " votos)";
@@ -100,5 +100,10 @@ stringstream Candidate::toString()
         ret << " - Coligação: " << c;
     }
 
-    return ret;
+    return ret.str;
+}
+
+static bool compare(const Candidate &a, const Candidate &b)
+{
+    return a.getVotes() > b.getVotes();
 }

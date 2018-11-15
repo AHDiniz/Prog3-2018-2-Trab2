@@ -71,3 +71,8 @@ void Party::addCandidate(Candidate &candidate)
     votes += candidate.getVotes;
     candidate.setParty(*this);
 }
+
+static bool compare(const Party &a, const Party &b)
+{
+    return a.getVotes() > b.getVotes();
+}

@@ -36,6 +36,7 @@ public:
     const unordered_set<Party *> &getParties() const;
     void addCandidate(const string &name, const string &party, const int votes, const string &percent, const bool elected);
     const string &toString() const;
+    static bool compare(const Coalition &a, const Coalition &b);
 };
 
 #endif // COALITION_H_

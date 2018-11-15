@@ -11,14 +11,14 @@
 
 #define READER_H_
 
+#include "election.h"
 
-class Reader
+using namespace std;
+
+static class Reader
 {
-private:
-    
 public:
-    Reader();
-    ~Reader();
+    Election readFile(const string filePath, const string encoding);
 };
 
 #endif // READER_H_

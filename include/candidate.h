@@ -40,7 +40,7 @@ public:
     Candidate(const string &name, Party &party, int votes, const string &percent, bool elected);
     Candidate(int v = 0, const string p = "0%", bool e = false);
     Candidate(Candidate &c);
-    ~Candidate() { delete party; }
+    // ~Candidate() { delete party; }
 
     // Candidate's name getter:
     const string &getName() const;

@@ -39,11 +39,11 @@ public:
     Party(const string &name, const string &coalition);
     Party();
     Party(const Party &p);
-    ~Party()
-    {
-        if (candidates != NULL)
-            delete candidates;
-    }
+    // ~Party()
+    // {
+    //     if (candidates != nullptr)
+    //         delete candidates;
+    // }
 
     // Coalition name getter:
     const string &getCoalition() const;

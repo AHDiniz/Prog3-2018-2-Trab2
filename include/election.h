@@ -23,7 +23,7 @@ using namespace std;
 class Election
 {
 private:
-    map<string *, Coalition *, CoalitionComparator> *coalitions; // Map with every coalition in the election
+    map<string, Coalition *, CoalitionComparator> *coalitions; // Map with every coalition in the election
     vector<Candidate *> *mostVoted; // List of candidates ordered by the number of votes
     int vacancies; // Number of vacant positions/elected candidates
 
@@ -35,7 +35,7 @@ public:
      * Output: an election object
      * Conditions: if new is used, remember to destroy the structure
      */
-    Election(map<string *, Coalition *, CoalitionComparator> *coalitions, const int vacancies);
+    Election(map<string, Coalition *, CoalitionComparator> *coalitions, const int vacancies);
     ~Election() { delete coalitions; delete mostVoted; } // Election destructor
 
     string numberOfVacancies() const;

@@ -18,7 +18,12 @@ using namespace std;
 static class Reader
 {
 public:
-    Election readFile(const string filePath, const string encoding);
+    Election *readFile(const string filePath, const string encoding);
+
+private:
+static inline void ltrim(std::string &s);
+static inline void rtrim(std::string &s);
+static inline void trim(std::string &s);
 };
 
 #endif // READER_H_

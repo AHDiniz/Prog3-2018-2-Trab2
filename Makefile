@@ -19,5 +19,5 @@ else
 	TARGET = trab2
 endif
 
-test: $(SRC)/main.cpp
+test: $(SRC)/main.cpp $(SRC)/candidate.cpp $(SRC)/party.cpp
 	$(CC) -o $(BIN)/$(TARGET) $^ $(FLAGS)

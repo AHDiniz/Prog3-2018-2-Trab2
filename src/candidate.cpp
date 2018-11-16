@@ -93,14 +93,14 @@ string Candidate::toString()
     stringstream ret;
     ret << name << " (" << party->getName() << ", " << votes << " votos)";
 
-    Party p = this->getParty;
-    string c = p.getCoalition;
+    Party p = this->getParty();
+    string c = p.getCoalition();
     if(p.getName() != c)
     {
         ret << " - Coligação: " << c;
     }
 
-    return ret.str;
+    return ret.str();
 }
 
 bool Candidate::compare(const Candidate *a, const Candidate *b)

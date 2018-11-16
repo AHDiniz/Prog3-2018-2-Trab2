@@ -8,9 +8,15 @@
  */
 
 #include <iostream>
+#include <string>
 
 int main(int argc, char const *argv[])
 {
+    // Testing the candidate class:
+
+    std::string name = "Hello";
+    std::cout << name << std::endl;
+
     return 0;
 }
 

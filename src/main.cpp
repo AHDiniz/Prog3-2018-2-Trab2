@@ -26,6 +26,8 @@ int main(int argc, char const *argv[])
 
     std::cout << "Candidate's name: " << candidate.getName() << std::endl;
 
+    delete &candidate;
+
     return 0;
 }
 

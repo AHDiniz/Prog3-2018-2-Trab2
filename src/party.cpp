@@ -72,7 +72,7 @@ void Party::addCandidate(Candidate &candidate)
     candidate.setParty(*this);
 }
 
-static bool compare(const Party &a, const Party &b)
+bool Party::compare(const Party *a, const Party *b)
 {
-    return a.getVotes() > b.getVotes();
+    return (a != b) && a->getVotes() > b->getVotes();
 }

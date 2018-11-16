@@ -63,7 +63,13 @@ void Coalition::addCandidate(const string &name, const string &party, const int 
     parties->insert(&p);
 }
 
-static bool compare(const Coalition &a, const Coalition &b)
+bool Coalition::compare(const Coalition *a, const Coalition *b)
 {
-    return a.getVotes() > b.getVotes();
+    return (a != b) && a->getVotes() > b->getVotes();
+}
+
+
+bool CoalitionComparator::operator()(const Coalition *a, const Coalition *b)
+{
+    return Coalition::compare(a,b);
 }

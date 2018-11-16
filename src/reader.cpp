@@ -16,12 +16,14 @@
 
 Election Reader::readFile(const string filePath, const string encoding)
 {
-    map<string *, Coalition *> *coalitions = new map<string *, Coalition *>(); // Map with all coalitions
+    map<string *, Coalition *, CoalitionComparator> *coalitions = new map<string *, Coalition *, CoalitionComparator>(); // Map with all coalitions
     bool elected; // Mark elected candidates
     string aux, name, coalition, party, percent; // Auxiliar reading variables
     int votes = 0; // Vote counter
     int vacancies = 0; // Number of elected candidates
     Coalition temp; // Auxiliar variable
 
+    locale brLocale("pt_BR."+encoding);
 
+    
 }

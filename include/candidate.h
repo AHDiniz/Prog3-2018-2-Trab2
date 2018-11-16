@@ -63,7 +63,7 @@ public:
     // Candidate's elected bool setter:
     void setElected(const bool elected);
     string toString();
-    static bool compare(const Candidate &a, const Candidate &b);
+    static bool compare(const Candidate *a, const Candidate *b);
 };
 
 #endif

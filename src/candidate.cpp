@@ -103,7 +103,7 @@ string Candidate::toString()
     return ret.str;
 }
 
-static bool compare(const Candidate &a, const Candidate &b)
+bool Candidate::compare(const Candidate *a, const Candidate *b)
 {
-    return a.getVotes() > b.getVotes();
+    return (a != b) && a->getVotes() > b->getVotes();
 }

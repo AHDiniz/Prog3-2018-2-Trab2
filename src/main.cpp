@@ -13,20 +13,33 @@
 
 int main(int argc, char const *argv[])
 {
-    // Testing the candidate class:
+    Candidate c1;
+    Candidate c2;
+    Candidate c3;
 
-    std::string name;
-    int votes;
-    bool elected;
-    Candidate candidate;
+    Party party("PQP", "PQP");
 
-    std::cout << "Write the name of the candidate:" << std::endl;
-    std::cin >> name;
-    candidate.setName(name);
+    c1.setName("Alan Herculano Diniz");
+    c1.setVotes(100);
+    c1.setElected(true);
+    c1.setPercent("0.3");
+    c1.setParty(party);
 
-    std::cout << "Candidate's name: " << candidate.getName() << std::endl;
+    c2.setName("Rafael Belmock Pedruzzi");
+    c2.setVotes(100);
+    c2.setElected(true);
+    c2.setPercent("0.3");
+    c2.setParty(party);
 
-    // delete &candidate;
+    c3.setName("José Ninguém da Silva Pinto");
+    c3.setVotes(100);
+    c3.setElected(true);
+    c3.setPercent("0");
+    c3.setParty(party);
+
+    std::cout << c1.toString() << std::endl;
+    std::cout << c2.toString() << std::endl;
+    std::cout << c3.toString() << std::endl;
 
     return 0;
 }

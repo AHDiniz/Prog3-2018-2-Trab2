@@ -51,11 +51,7 @@ const Party &Candidate::getParty() const
 
 void Candidate::setParty(const Party &party)
 {
-    if(this->party != NULL)
-    {
-        delete this->party;
-    }
-    this->party = new Party(party);
+    this->party = (Party *) &party;
 }
 
 const int Candidate::getVotes() const

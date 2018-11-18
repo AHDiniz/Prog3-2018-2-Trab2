@@ -9,37 +9,22 @@
 
 #include <iostream>
 #include <string>
-#include "../include/candidate.h"
+#include "../include/coalition.h"
 
 int main(int argc, char const *argv[])
 {
-    Candidate c1;
-    Candidate c2;
-    Candidate c3;
+    // Currently only tests:
 
-    Party party("PQP", "PQP");
+    Coalition coalition1;
 
-    c1.setName("Alan Herculano Diniz");
-    c1.setVotes(100);
-    c1.setElected(true);
-    c1.setPercent("0.3");
-    c1.setParty(party);
+    coalition1.addCandidate("Alan Herculano Diniz", "PQP", 100, "0.3", true);
+    coalition1.addCandidate("Rafael Belmock Pedruzzi", "PQP", 99, "0.3", true);
+    coalition1.addCandidate("José Ninguém da Silva Pinto", "PQP", 98, "0", false);
+    coalition1.addCandidate("Fulano Borges Terceiro", "PNSC", 100, "0.3", true);
+    coalition1.addCandidate("Sicrano Pessoa Matos", "PNSC", 99, "0.3", true);
+    coalition1.addCandidate("Beltrano Não Sei das Quantas", "PNSC", 98, "0", false);
 
-    c2.setName("Rafael Belmock Pedruzzi");
-    c2.setVotes(100);
-    c2.setElected(true);
-    c2.setPercent("0.3");
-    c2.setParty(party);
-
-    c3.setName("José Ninguém da Silva Pinto");
-    c3.setVotes(100);
-    c3.setElected(true);
-    c3.setPercent("0");
-    c3.setParty(party);
-
-    std::cout << c1.toString() << std::endl;
-    std::cout << c2.toString() << std::endl;
-    std::cout << c3.toString() << std::endl;
+    std::cout << coalition1.getParties().size() << std::endl;
 
     return 0;
 }

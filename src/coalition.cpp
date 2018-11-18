@@ -8,6 +8,8 @@
  */
 
 #include <algorithm>
+#include <sstream>
+#include <iostream>
 
 #include "../include/coalition.h"
 #include "../include/party.h"
@@ -16,7 +18,7 @@
 Coalition::Coalition(int v)
 {
     votes = v;
-    parties = new unordered_set<Party *>();
+    // parties = new unordered_set<Party *>();
 }
 
 const string &Coalition::getName() const
@@ -41,16 +43,16 @@ void Coalition::setVotes(const int& votes)
 
 const unordered_set<Party *> &Coalition::getParties() const
 {
-    return *parties;
+    return parties;
 }
 
 void Coalition::addCandidate(const string &name, const string &party, const int votes, const string &percent, const bool elected)
 {
     this->votes += votes;
 
-    for (Party *p : *parties)
+    for (Party *p : this->parties)
     {
-        if (party._Equal(p->getName()))
+        if (party.compare(p->getName()) == 0)
         {
             Candidate c(name, *p, votes, percent, elected);
             p->addCandidate(c);
@@ -60,7 +62,24 @@ void Coalition::addCandidate(const string &name, const string &party, const int 
     Party p(party, this->name);
     Candidate c(name, p, votes, percent, elected);
     p.addCandidate(c);
-    parties->insert(&p);
+    this->parties.insert(&p);
+}
+
+string Coalition::toString()
+{
+    stringstream ret;
+
+    ret << this->name << endl;
+
+    for (Party *p : this->parties)
+    {
+        for (Candidate *c : p->getCandidates())
+        {
+            ret << c->toString() << endl;
+        }
+    }    
+
+    return ret.str();
 }
 
 bool Coalition::compare(const Coalition *a, const Coalition *b)

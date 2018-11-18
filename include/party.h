@@ -58,7 +58,7 @@ public:
     // Votes setter:
     void setVotes(const int votes);
     // Candidates set getter:
-    const unordered_set<Candidate *> getCandidates() const;
+    const unordered_set<Candidate *> &getCandidates() const;
     // Adding a candidate to the set:
     void addCandidate(Candidate &candidate);
     static bool compare(const Party *a, const Party *b);

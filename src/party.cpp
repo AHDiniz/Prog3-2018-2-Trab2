@@ -60,7 +60,7 @@ void Party::setVotes(const int votes)
     this->votes = votes;
 }
 
-const unordered_set<Candidate *> Party::getCandidates() const
+const unordered_set<Candidate *> &Party::getCandidates() const
 {
     return candidates;
 }

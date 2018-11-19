@@ -44,6 +44,8 @@ int main(int argc, char const *argv[])
     Candidate *cAlien = Funcao2(c1);
     cout << cAlien->toString() << endl;
 
+    delete cAlien;
+
     return 0;
 }
 

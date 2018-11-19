@@ -11,7 +11,7 @@
 
 #include "../include/party.h"
 
-Party::Party(const string &name, const string &coalition)
+Party::Party(const string &name, Coalition &coalition)
 {
     this->setName(name);
     this->setCoalition(coalition);
@@ -27,17 +27,17 @@ Party::Party(const Party &p)
 {
     this->setName(p.name);
     this->setVotes(p.votes);
-    this->setCoalition(p.coalition);
+    this->setCoalition(p.getCoalition());
 }
 
-const string &Party::getCoalition() const
+Coalition &Party::getCoalition() const
 {
-    return this->coalition;
+    return *(this->coalition);
 }
 
-void Party::setCoalition(const string &coalition)
+void Party::setCoalition(Coalition &coalition)
 {
-    this->coalition = coalition;
+    this->coalition = (Coalition *) &coalition;
 }
 
 const string &Party::getName() const

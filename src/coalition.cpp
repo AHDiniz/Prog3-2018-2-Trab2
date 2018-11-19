@@ -60,7 +60,7 @@ void Coalition::addCandidate(const string &name, const string &party, const int 
             return;
         }
     }
-    Party p(party, this->name);
+    Party p(party, *this);
     Candidate c(name, p, votes, percent, elected);
     p.addCandidate(c);
     // std::cout << c.toString() << std::endl;
@@ -73,9 +73,10 @@ void Coalition::addCandidate(Candidate &candidate)
     if (position == this->parties.end())
     {
         this->parties.insert((Party *) &(candidate.getParty()));
-        this->name = this->name + candidate.getParty().getName();
+        this->name = this->name + candidate.getParty().getName() + " ";
         Party *p = *(this->parties.find((Party *) &(candidate.getParty())));
-        p->setCoalition(this->name);
+        p->setCoalition(*this);
+        p->addCandidate(candidate);
     }
     else
     {
@@ -92,9 +93,11 @@ string Coalition::toString()
 
     for (Party *p : this->parties)
     {
+        // std::cout << "Tem partido" << std::endl;
         for (Candidate *c : p->getCandidates())
         {
-            ret << c->toString() << this->name << endl;
+            // std::cout << "Tem coligação" << std::endl;
+            ret << c->toString() << /*this->name <<*/ endl;
         }
     }    
 

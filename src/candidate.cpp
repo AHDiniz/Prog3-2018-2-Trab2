@@ -90,7 +90,7 @@ string Candidate::toString()
     ret << name << " (" << party->getName() << ", " << votes << " votos)";
 
     Party p = this->getParty();
-    string c = p.getCoalition();
+    string c = p.getCoalition().getName();
     if(p.getName() != c)
     {
         ret << " - Coligação: " << c;

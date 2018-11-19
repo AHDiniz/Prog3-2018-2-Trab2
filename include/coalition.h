@@ -13,11 +13,13 @@
 
 #include <string>
 #include <unordered_set>
-#include "../include/party.h"
+#include "party.h"
+#include "candidate.h"
 
 using namespace std;
 
 class Party;
+class Candidate;
 
 class Coalition
 {

@@ -17,14 +17,16 @@ int main(int argc, char const *argv[])
 
     Coalition coalition1;
 
-    coalition1.addCandidate("Alan Herculano Diniz", "PQP", 100, "0.3", true);
-    coalition1.addCandidate("Rafael Belmock Pedruzzi", "PQP", 99, "0.3", true);
-    coalition1.addCandidate("José Ninguém da Silva Pinto", "PQP", 98, "0", false);
-    coalition1.addCandidate("Fulano Borges Terceiro", "PNSC", 100, "0.3", true);
-    coalition1.addCandidate("Sicrano Pessoa Matos", "PNSC", 99, "0.3", true);
-    coalition1.addCandidate("Beltrano Não Sei das Quantas", "PNSC", 98, "0", false);
+    Party pqp("PQP", "");
+    Party pnsc("PNSC", "");
 
-    std::cout << coalition1.getParties().size() << std::endl;
+    Candidate c1("Alan Herculano Diniz", pqp, 100, "0.3", true);
+    Candidate c2("Rafael Belmock Pedruzzi", pnsc, 100, "0.3", true);
+
+    coalition1.addCandidate(c1);
+    coalition1.addCandidate(c2);
+
+    std::cout << coalition1.toString() << std::endl;
 
     return 0;
 }

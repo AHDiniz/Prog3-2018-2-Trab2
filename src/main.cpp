@@ -11,7 +11,7 @@
 #include <string>
 #include "../include/coalition.h"
 
-Coalition &Funcao();
+Coalition *Funcao();
 Candidate *Funcao2(Candidate &c);
 
 int main(int argc, char const *argv[])
@@ -38,27 +38,28 @@ int main(int argc, char const *argv[])
     cout << coalition2.toString() << endl;
 
     // Teste de criação de classe em uma função:
-    // Coalition coAlien = Funcao();
-    // cout << coAlien.toString() << endl;
+    Coalition *coAlien = Funcao();
+    cout << coAlien->toString() << endl;
 
     Candidate *cAlien = Funcao2(c1);
     cout << cAlien->toString() << endl;
 
+    delete coAlien;
     delete cAlien;
 
     return 0;
 }
 
-Coalition &Funcao()
+Coalition *Funcao()
 {
-    Coalition coalition3;
-    coalition3.setName("ALIEN");
+    Coalition *coalition3 = new Coalition();
+    coalition3->setName("ALIEN");
 
-    Party alien("ALIEN", coalition3);
+    Party *alien = new Party("ALIEN", *coalition3);
 
-    Candidate c3("Josi Mar", alien, 100, "0.3", true);
+    Candidate *c3 = new Candidate("Josi Mar", *alien, 100, "0.3", true);
 
-    coalition3.addCandidate(c3);
+    coalition3->addCandidate(*c3);
 
     return coalition3;
 }

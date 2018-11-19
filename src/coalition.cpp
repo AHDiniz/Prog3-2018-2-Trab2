@@ -52,7 +52,7 @@ void Coalition::addCandidate(Candidate &candidate)
     if (position == this->parties.end())
     {
         this->parties.insert((Party *) &(candidate.getParty()));
-        this->name = this->name + candidate.getParty().getName() + " ";
+        //this->name = this->name + candidate.getParty().getName() + " ";
         Party *p = *(this->parties.find((Party *) &(candidate.getParty())));
         p->setCoalition(*this);
         p->addCandidate(candidate);

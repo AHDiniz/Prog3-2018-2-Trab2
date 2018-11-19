@@ -72,11 +72,9 @@ string Coalition::toString()
 
     for (Party *p : this->parties)
     {
-        // std::cout << "Tem partido" << std::endl;
         for (Candidate *c : p->getCandidates())
         {
-            // std::cout << "Tem coligação" << std::endl;
-            ret << c->toString() << /*this->name <<*/ endl;
+            ret << c->toString() << endl;
         }
     }    
 

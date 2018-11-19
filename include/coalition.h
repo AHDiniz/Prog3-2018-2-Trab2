@@ -29,7 +29,13 @@ class Coalition
 
 public:
     Coalition(int v=0);
-    // ~Coalition() { delete parties; }
+    ~Coalition()
+    {
+        for(Party *p: parties)
+        {
+            delete p;
+        }
+    }
 
     const string &getName() const; 
     void setName(const string &name);

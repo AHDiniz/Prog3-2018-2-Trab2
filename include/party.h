@@ -43,8 +43,10 @@ public:
     Party(const Party &p);
     // ~Party()
     // {
-    //     if (candidates != nullptr)
-    //         delete candidates;
+    //     for(Candidate *c: candidates)
+    //     {
+    //         delete c;
+    //     }
     // }
 
     // Coalition name getter:

@@ -10,25 +10,67 @@
 #include <iostream>
 #include <string>
 #include "../include/coalition.h"
+#include "../include/election.h"
+
+Coalition *Funcao(map<string, Coalition *> *coalitions, string s);
+Candidate *Funcao2(Candidate &c);
 
 int main(int argc, char const *argv[])
 {
     // Currently only tests:
 
-    Coalition coalition1;
-    coalition1.setName("");
+    string b = "BOLO";
+    string pp = "PQP / PNSC";
 
-    Party pqp("PQP", coalition1);
-    Party pnsc("PNSC", coalition1);
+    map<string, Coalition *> *coalitions = new map<string, Coalition *>();
+    Coalition *temp, *temp2;
+
+    // Coalition coalition1, coalition2;
+    // coalition1.setName(pp);
+    // coalition2.setName(b);
+
+    // Testando um trecho de reader
+    
+    temp = Funcao(coalitions, pp);
+    temp2 = Funcao(coalitions, b);
+    
+
+    Party pqp("PQP", *temp);
+    Party pnsc("PNSC", *temp);
+    Party bolo("BOLO", *temp2);
 
     Candidate c1("Alan Herculano Diniz", pqp, 100, "0.3", true);
     Candidate c2("Rafael Belmock Pedruzzi", pnsc, 100, "0.3", true);
+    Candidate cenoura("Bolo de Cenoura", bolo, 350, "25%", false);
 
-    coalition1.addCandidate(c1);
-    coalition1.addCandidate(c2);
+    temp->addCandidate(c1);
+    temp->addCandidate(c2);
+    temp2->addCandidate(cenoura);
 
-    std::cout << coalition1.toString() << std::endl;
+
+    for (map<string, Coalition *>::iterator coIt = coalitions->begin(); coIt != coalitions->end(); coIt++)
+    {
+        cout << coIt->second->toString() << endl;
+    }
+
+    // cout << temp->toString() << endl;
+    // cout << temp2->toString() << endl;
+
+    for (map<string, Coalition *>::iterator coIt = coalitions->begin(); coIt != coalitions->end(); coIt++)
+    {
+        delete coIt->second;
+    }
+    delete coalitions;
 
     return 0;
 }
 
+Coalition *Funcao(map<string, Coalition *> *coalitions, string s)
+{
+    if(coalitions->find(s) == coalitions->end())
+    {
+        (*coalitions)[s] = new Coalition();
+        (*coalitions)[s]->setName(s);
+    }
+    return coalitions->find(s)->second;
+}

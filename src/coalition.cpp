@@ -15,9 +15,10 @@
 #include "../include/party.h"
 #include "../include/candidate.h"
 
-Coalition::Coalition(int v)
+Coalition::Coalition(string n)
 {
-    votes = v;
+    name = n;
+    votes = 0;
     // parties = new unordered_set<Party *>();
 }
 
@@ -52,7 +53,7 @@ void Coalition::addCandidate(Candidate &candidate)
     if (position == this->parties.end())
     {
         this->parties.insert((Party *) &(candidate.getParty()));
-        this->name = this->name + candidate.getParty().getName() + " ";
+        //this->name = this->name + candidate.getParty().getName() + " ";
         Party *p = *(this->parties.find((Party *) &(candidate.getParty())));
         p->setCoalition(*this);
         p->addCandidate(candidate);
@@ -87,7 +88,7 @@ bool Coalition::compare(const Coalition *a, const Coalition *b)
 }
 
 
-bool CoalitionComparator::operator()(const Coalition *a, const Coalition *b)
-{
-    return Coalition::compare(a,b);
-}
+// bool CoalitionComparator::operator()(const Coalition *a, const Coalition *b)
+// {
+//     return Coalition::compare(a,b);
+// }

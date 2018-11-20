@@ -28,8 +28,14 @@ class Coalition
     int votes;
 
 public:
-    Coalition(int v=0);
-    // ~Coalition() { delete parties; }
+    Coalition(string n="");
+    // ~Coalition()
+    // {
+    //     for(Party *p: parties)
+    //     {
+    //         delete p;
+    //     }
+    // }
 
     const string &getName() const; 
     void setName(const string &name);
@@ -41,10 +47,10 @@ public:
     static bool compare(const Coalition *a, const Coalition *b);
 };
 
-class CoalitionComparator
-{
-public:
-    bool operator()(const Coalition *a, const Coalition *b);
-};
+// class CoalitionComparator
+// {
+// public:
+//     bool operator()(const Coalition *a, const Coalition *b);
+// };
 
 #endif // COALITION_H_

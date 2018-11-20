@@ -74,10 +74,3 @@ Coalition *Funcao(map<string, Coalition *> *coalitions, string s)
     }
     return coalitions->find(s)->second;
 }
-
-Candidate *Funcao2(Candidate &c)
-{
-    Candidate *cand = new Candidate(c);
-    return cand;
-}
-

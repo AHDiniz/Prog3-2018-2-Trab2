@@ -19,69 +19,79 @@
 
 Election *Reader::readFile(const string filePath, const string encoding)
 {
-    map<string, Coalition *> coalitions; // Map with all coalitions
-    bool elected;                                                                                                        // Mark elected candidates
-    string aux, name, coalition, party, percent;                                                                         // Auxiliar reading variables
-    int votes = 0;                                                                                                       // Vote counter
-    int vacancies = 0;                                                                                                   // Number of elected candidates
-    Coalition *temp;                                                                                                      // Auxiliar variable
+    map<string, Coalition *> *coalitions = new map<string, Coalition *>; // Map with all coalitions.
+    bool elected;                                                        // Mark elected candidates.
+    string aux, name, coalition, party, percent;                         // Auxiliar reading variables.
+    int votes;                                                           // Vote counter.
+    int vacancies = 0;                                                   // Number of vacancies.
+    Coalition *temp;                                                     // Auxiliar variables.
+    Party *prt;
+    Candidate *col;
     ifstream in;
 
     locale brLocale("pt_BR." + encoding);
 
     in.open(filePath);
     //in.imbue(brLocale);
-    getline(in, aux); // Skipping the header
+    getline(in, aux); // Skipping the header.
 
     while (getline(in, aux))
     {
         stringstream line(aux);
         line.imbue(brLocale);
 
-        getline(line, aux, ';'); // Getting the identification number
-        if (aux.find("#"))       // Break the loop if the section of valid candidates end
+        getline(line, aux, ';'); // Getting the identification number.
+        if (aux.find("#"))       // Break the loop if the section of valid candidates end.
         {
             break;
         }
-        if (aux.find("*")) // Incrementing the number of vacancies if an elected candidate is found
+        if (aux.find("*")) // Incrementing the number of vacancies if an elected candidate is found.
         {
             vacancies++;
-            elected = true; // Marking the candidate as elected
+            elected = true; // Marking the candidate as elected.
         }
-        else // Else, marking candidate as non elected
+        else // Else, marking candidate as non elected.
             elected = false;
 
-        getline(line, aux, ';');  // Skipping the candidate's number
-        getline(line, name, ';'); // Getting the candidate's name
+        getline(line, aux, ';');  // Skipping the candidate's number.
+        getline(line, name, ';'); // Getting the candidate's name.
         aux.clear();
 
-        line >> party;  // Getting party
+        line >> party;  // Getting party's name.
         trim(party);
 
-        getline(line, aux, ';');    // Getting coalition, if there is one
+        getline(line, aux, ';');    // Getting coalition, if there is one.
 
         std::size_t pos = aux.find("-");
         if (pos != string::npos)
         {
-            coalition = aux.substr(pos);
+            coalition = aux.substr(++pos);  // Getting coalition's name.
             trim(coalition);
         }
-        else
+        else    // If theres no coalition, it's name will be seted as the party's name.
         {
             coalition = party;
         }
 
-        line >> votes; // Getting the candidate's votes
+        line >> votes; // Getting the candidate's votes.
         line.ignore(1,';');
-        getline(line, percent); // Getting the candidate's percent of votes
+        getline(line, percent); // Getting the candidate's percent of votes.
 
-        temp = coalitions[coalition];   // Getting the coalition of the candidate. If it dont exists it will be automaticaly created with defaut constructor by operator[]
-        if(temp->getName() != coalition)   // If true then a new coalition was created
+        if(coalitions->find(coalition) == coalitions->end())    // Checking if the coalition already exists.
         {
-            coalitions[coalition]->setName(coalition);  // Setting coalition's name
+            (*coalitions)[coalition] = new Coalition();     // If not, a new one is created.
+            (*coalitions)[coalition]->setName(coalition);
         }
+        temp = coalitions->find(coalition)->second;
 
-        coalitions[coalition]->addCandidate(name, party, votes, percent, elected); // Adding the line's candidate to the coalition
+        if(temp->getParties().find() == temp->getParties().end())    // Checking if the coalition already exists.
+        {
+            (*coalitions)[coalition] = new Coalition();     // If not, a new one is created.
+            (*coalitions)[coalition]->setName(coalition);
+        }
+        temp = coalitions->find(coalition)->second;
+
+        (*coalitions)[coalition]->addCandidate(name, party, votes, percent, elected); // Adding the line's candidate to the coalition
     }
     return new Election(&coalitions,vacancies);
 }

@@ -10,6 +10,7 @@
 #include <iostream>
 #include <string>
 #include "../include/coalition.h"
+#include "../include/election.h"
 
 Coalition *Funcao();
 Candidate *Funcao2(Candidate &c);
@@ -18,9 +19,28 @@ int main(int argc, char const *argv[])
 {
     // Currently only tests:
 
+    string b = "BOLO";
+    string pp = "PQP / PNSC";
+
+    map<string, Coalition *> *coalitions = new map<string, Coalition *>();
+
     Coalition coalition1, coalition2;
-    coalition1.setName("PQP / PNSC");
-    coalition2.setName("BOLO");
+    Coalition *temp = &coalition1, *temp2 = &coalition2;
+    coalition1.setName(pp);
+    coalition2.setName(b);
+
+    // Testando um trecho de reader
+    // temp = (*coalitions)[pp];
+    // if(temp->getName() != pp)
+    // {
+    //     temp->setName(pp);
+    // }
+
+    // temp2 = (*coalitions)[b];
+    // if(temp2->getName() != b)
+    // {
+    //     temp2->setName(b);
+    // }
 
     Party pqp("PQP", coalition1);
     Party pnsc("PNSC", coalition1);
@@ -30,22 +50,20 @@ int main(int argc, char const *argv[])
     Candidate c2("Rafael Belmock Pedruzzi", pnsc, 100, "0.3", true);
     Candidate cenoura("Bolo de Cenoura", bolo, 350, "25%", false);
 
-    coalition1.addCandidate(c1);
-    coalition1.addCandidate(c2);
-    coalition2.addCandidate(cenoura);
+    temp->addCandidate(c1);
+    temp->addCandidate(c2);
+    temp2->addCandidate(cenoura);
 
-    std::cout << coalition1.toString() << std::endl;
-    cout << coalition2.toString() << endl;
 
-    // Teste de criação de classe em uma função:
-    Coalition *coAlien = Funcao();
-    cout << coAlien->toString() << endl;
+    // for (map<string, Coalition *>::iterator coIt = coalitions->begin(); coIt != coalitions->end(); coIt++)
+    // {
+    //     cout << coIt->second->toString() << endl;
+    // }
 
-    Candidate *cAlien = Funcao2(c1);
-    cout << cAlien->toString() << endl;
+    cout << temp->toString() << endl;
+    cout << temp2->toString() << endl;
 
-    delete coAlien;
-    delete cAlien;
+    delete coalitions;
 
     return 0;
 }

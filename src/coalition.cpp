@@ -87,7 +87,7 @@ bool Coalition::compare(const Coalition *a, const Coalition *b)
 }
 
 
-bool CoalitionComparator::operator()(const Coalition *a, const Coalition *b)
-{
-    return Coalition::compare(a,b);
-}
+// bool CoalitionComparator::operator()(const Coalition *a, const Coalition *b)
+// {
+//     return Coalition::compare(a,b);
+// }

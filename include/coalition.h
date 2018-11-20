@@ -47,10 +47,10 @@ public:
     static bool compare(const Coalition *a, const Coalition *b);
 };
 
-class CoalitionComparator
-{
-public:
-    bool operator()(const Coalition *a, const Coalition *b);
-};
+// class CoalitionComparator
+// {
+// public:
+//     bool operator()(const Coalition *a, const Coalition *b);
+// };
 
 #endif // COALITION_H_

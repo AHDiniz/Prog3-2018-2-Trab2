@@ -10,22 +10,40 @@
 #include <algorithm>
 #include "../include/election.h"
 
-Election::Election(map<string, Coalition *, CoalitionComparator> *coalitions, const int vacancies)
+Election::Election(map<string, Coalition *> *coalitions, const int vacancies)
 {
     this->coalitions = coalitions;
     this->vacancies = vacancies;
 
-    for (map<string, Coalition *, CoalitionComparator>::iterator coIt = coalitions->begin(); coIt != coalitions->end(); coIt++)
+    for (map<string, Coalition *>::iterator coIt = coalitions->begin(); coIt != coalitions->end(); coIt++)
     {
         for (const Party *p : coIt->second->getParties())
         {
             for (Candidate *c : p->getCandidates())
             {
-                mostVoted->push_back(c);
+                mostVoted.push_back(c);
             }
         }
     }
-    sort(mostVoted->begin(), mostVoted->end(), Candidate::compare);
+    sort(mostVoted.begin(), mostVoted.end(), Candidate::compare);
+}
+
+Election::~Election()
+{
+    for (Candidate *c: mostVoted)
+    {
+        delete c;
+    }
+
+    for (map<string, Coalition *>::iterator coIt = coalitions->begin(); coIt != coalitions->end(); coIt++)
+    {
+        for (const Party *p : coIt->second->getParties())
+        {
+            delete p;
+        }
+        delete coIt->second;
+    }
+    delete coalitions;
 }
 
 string Election::numberOfVacancies() const

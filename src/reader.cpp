@@ -19,7 +19,7 @@
 
 Election *Reader::readFile(const string filePath, const string encoding)
 {
-    map<string, Coalition *, CoalitionComparator> coalitions; // Map with all coalitions
+    map<string, Coalition *> coalitions; // Map with all coalitions
     bool elected;                                                                                                        // Mark elected candidates
     string aux, name, coalition, party, percent;                                                                         // Auxiliar reading variables
     int votes = 0;                                                                                                       // Vote counter

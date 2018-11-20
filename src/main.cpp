@@ -12,7 +12,7 @@
 #include "../include/coalition.h"
 #include "../include/election.h"
 
-Coalition *Funcao();
+Coalition *Funcao(map<string, Coalition *> *coalitions, string s);
 Candidate *Funcao2(Candidate &c);
 
 int main(int argc, char const *argv[])
@@ -23,28 +23,21 @@ int main(int argc, char const *argv[])
     string pp = "PQP / PNSC";
 
     map<string, Coalition *> *coalitions = new map<string, Coalition *>();
+    Coalition *temp, *temp2;
 
-    Coalition coalition1, coalition2;
-    Coalition *temp = &coalition1, *temp2 = &coalition2;
-    coalition1.setName(pp);
-    coalition2.setName(b);
+    // Coalition coalition1, coalition2;
+    // coalition1.setName(pp);
+    // coalition2.setName(b);
 
     // Testando um trecho de reader
-    // temp = (*coalitions)[pp];
-    // if(temp->getName() != pp)
-    // {
-    //     temp->setName(pp);
-    // }
+    
+    temp = Funcao(coalitions, pp);
+    temp2 = Funcao(coalitions, b);
+    
 
-    // temp2 = (*coalitions)[b];
-    // if(temp2->getName() != b)
-    // {
-    //     temp2->setName(b);
-    // }
-
-    Party pqp("PQP", coalition1);
-    Party pnsc("PNSC", coalition1);
-    Party bolo("BOLO", coalition2);
+    Party pqp("PQP", *temp);
+    Party pnsc("PNSC", *temp);
+    Party bolo("BOLO", *temp2);
 
     Candidate c1("Alan Herculano Diniz", pqp, 100, "0.3", true);
     Candidate c2("Rafael Belmock Pedruzzi", pnsc, 100, "0.3", true);
@@ -55,31 +48,31 @@ int main(int argc, char const *argv[])
     temp2->addCandidate(cenoura);
 
 
-    // for (map<string, Coalition *>::iterator coIt = coalitions->begin(); coIt != coalitions->end(); coIt++)
-    // {
-    //     cout << coIt->second->toString() << endl;
-    // }
+    for (map<string, Coalition *>::iterator coIt = coalitions->begin(); coIt != coalitions->end(); coIt++)
+    {
+        cout << coIt->second->toString() << endl;
+    }
 
-    cout << temp->toString() << endl;
-    cout << temp2->toString() << endl;
+    // cout << temp->toString() << endl;
+    // cout << temp2->toString() << endl;
 
+    for (map<string, Coalition *>::iterator coIt = coalitions->begin(); coIt != coalitions->end(); coIt++)
+    {
+        delete coIt->second;
+    }
     delete coalitions;
 
     return 0;
 }
 
-Coalition *Funcao()
+Coalition *Funcao(map<string, Coalition *> *coalitions, string s)
 {
-    Coalition *coalition3 = new Coalition();
-    coalition3->setName("ALIEN");
-
-    Party *alien = new Party("ALIEN", *coalition3);
-
-    Candidate *c3 = new Candidate("Josi Mar", *alien, 100, "0.3", true);
-
-    coalition3->addCandidate(*c3);
-
-    return coalition3;
+    if(coalitions->find(s) == coalitions->end())
+    {
+        (*coalitions)[s] = new Coalition();
+        (*coalitions)[s]->setName(s);
+    }
+    return coalitions->find(s)->second;
 }
 
 Candidate *Funcao2(Candidate &c)

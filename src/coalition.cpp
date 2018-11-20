@@ -15,9 +15,10 @@
 #include "../include/party.h"
 #include "../include/candidate.h"
 
-Coalition::Coalition(int v)
+Coalition::Coalition(string n)
 {
-    votes = v;
+    name = n;
+    votes = 0;
     // parties = new unordered_set<Party *>();
 }
 

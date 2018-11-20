@@ -28,7 +28,7 @@ class Coalition
     int votes;
 
 public:
-    Coalition(int v=0);
+    Coalition(string n="");
     // ~Coalition()
     // {
     //     for(Party *p: parties)

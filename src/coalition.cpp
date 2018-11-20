@@ -68,7 +68,7 @@ string Coalition::toString()
 {
     stringstream ret;
 
-    ret << this->name << endl;
+    // ret << this->name << endl;
 
     for (Party *p : this->parties)
     {

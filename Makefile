@@ -19,5 +19,28 @@ else
 	TARGET = trab2
 endif
 
+all: $(BIN)/$(TARGET)
+
+$(BIN)/main.o: $(SRC)/main.cpp
+	$(CC) -c $^ -o $@ $(FLAGS)
+
+$(BIN)/candidate.o: $(SRC)/candidate.cpp
+	$(CC) -c $^ -o $@ $(FLAGS)
+
+$(BIN)/party.o: $(SRC)/party.cpp
+	$(CC) -c $^ -o $@ $(FLAGS)
+
+$(BIN)/coalition.o: $(SRC)/coalition.cpp
+	$(CC) -c $^ -o $@ $(FLAGS)
+
+$(BIN)/election.o: $(SRC)/election.cpp
+	$(CC) -c $^ -o $@ $(FLAGS)
+
+$(BIN)/reader.o: $(SRC)/reader.cpp
+	$(CC) -c $^ -o $@ $(FLAGS)
+
+$(BIN)/$(TARGET): $(BIN)/main.o $(BIN)/candidate.o $(BIN)/party.o $(BIN)/coalition.o $(BIN)/election.o $(BIN)/reader.o
+	$(CC) -o $@ $^ $(FLAGS)
+
 test: $(SRC)/main.cpp $(SRC)/party.cpp $(SRC)/candidate.cpp $(SRC)/coalition.cpp
 	$(CC) -o $(BIN)/$(TARGET) $^ $(FLAGS)

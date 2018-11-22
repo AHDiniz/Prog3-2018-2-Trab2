@@ -37,7 +37,7 @@ const int &Coalition::getVotes() const
     return this->votes;
 }
 
-void Coalition::setVotes(const int& votes)
+void Coalition::setVotes(const int &votes)
 {
     this->votes = votes;
 }
@@ -49,18 +49,18 @@ const unordered_set<Party *> &Coalition::getParties() const
 
 void Coalition::addCandidate(Candidate &candidate)
 {
-    std::unordered_set<Party *>::const_iterator position = this->parties.find((Party *) &(candidate.getParty())); // Looking for the party in the set
+    std::unordered_set<Party *>::const_iterator position = this->parties.find((Party *)&(candidate.getParty())); // Looking for the party in the set
     if (position == this->parties.end())
     {
-        this->parties.insert((Party *) &(candidate.getParty()));
+        this->parties.insert((Party *)&(candidate.getParty()));
         //this->name = this->name + candidate.getParty().getName() + " ";
-        Party *p = *(this->parties.find((Party *) &(candidate.getParty())));
+        Party *p = *(this->parties.find((Party *)&(candidate.getParty())));
         p->setCoalition(*this);
         p->addCandidate(candidate);
     }
     else
     {
-        Party *p = (Party *) *position;
+        Party *p = (Party *)*position;
         p->addCandidate(candidate);
     }
 }
@@ -77,7 +77,7 @@ string Coalition::toString()
         {
             ret << c->toString() << endl;
         }
-    }    
+    }
 
     return ret.str();
 }
@@ -86,7 +86,6 @@ bool Coalition::compare(const Coalition *a, const Coalition *b)
 {
     return (a != b) && a->getVotes() > b->getVotes();
 }
-
 
 // bool CoalitionComparator::operator()(const Coalition *a, const Coalition *b)
 // {

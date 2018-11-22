@@ -37,7 +37,7 @@ Coalition &Party::getCoalition() const
 
 void Party::setCoalition(Coalition &coalition)
 {
-    this->coalition = (Coalition *) &coalition;
+    this->coalition = (Coalition *)&coalition;
 }
 
 const string &Party::getName() const

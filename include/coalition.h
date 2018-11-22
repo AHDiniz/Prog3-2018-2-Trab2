@@ -27,8 +27,8 @@ class Coalition
     unordered_set<Party *> parties;
     int votes;
 
-public:
-    Coalition(string n="");
+  public:
+    Coalition(string n = "");
     // ~Coalition()
     // {
     //     for(Party *p: parties)
@@ -37,7 +37,7 @@ public:
     //     }
     // }
 
-    const string &getName() const; 
+    const string &getName() const;
     void setName(const string &name);
     const int &getVotes() const;
     void setVotes(const int &votes);

@@ -24,12 +24,12 @@ class Coalition;
 
 class Party
 {
-    Coalition *coalition; // The name of the party's coalition
-    string name; // The name of the party
-    int votes = 0; // The amount of votes of the party
+    Coalition *coalition;                  // The name of the party's coalition
+    string name;                           // The name of the party
+    int votes = 0;                         // The amount of votes of the party
     unordered_set<Candidate *> candidates; // The candidates of the party
 
-public:
+  public:
     /**
      * Party's constructor:
      * 

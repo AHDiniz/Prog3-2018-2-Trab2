@@ -21,89 +21,105 @@ Election *Reader::readFile(const string filePath, const string encoding)
 {
     map<string, Coalition *> *coalitions = new map<string, Coalition *>; // Map with all coalitions.
     bool elected;                                                        // Mark elected candidates.
-    string aux, name, coalition, party, percent;                         // Auxiliar reading variables.
+    string aux, name, coalitionName, partyName, percent;                 // Auxiliar reading variables.
     int votes;                                                           // Vote counter.
     int vacancies = 0;                                                   // Number of vacancies.
-    Coalition *temp;                                                     // Auxiliar variables.
-    Party *prt;
-    Candidate *col;
+    Coalition *coalition;                                                // Auxiliar variables.
+    Party *party;
+    Candidate *cand;
     ifstream in;
 
     locale brLocale("pt_BR." + encoding);
+
+    cout << "Abrindo arquivo..." << endl;
 
     in.open(filePath);
     //in.imbue(brLocale);
     getline(in, aux); // Skipping the header.
 
-    while (getline(in, aux))
-    {
-        stringstream line(aux);
-        line.imbue(brLocale);
+    // while (getline(in, aux))
+    getline(in, aux);
+    // {
+    stringstream line(aux);
+    line.imbue(brLocale);
 
-        getline(line, aux, ';'); // Getting the identification number.
-        if (aux.find("#"))       // Break the loop if the section of valid candidates end.
+    getline(line, aux, ';'); // Getting the identification number.
+    if (aux.find("#"))       // Break the loop if the section of valid candidates end.
+    {
+        // break;
+    }
+    if (aux.find("*")) // Incrementing the number of vacancies if an elected candidate is found.
+    {
+        vacancies++;
+        elected = true; // Marking the candidate as elected.
+    }
+    else // Else, marking candidate as non elected.
+        elected = false;
+
+    getline(line, aux, ';');  // Skipping the candidate's number.
+    getline(line, name, ';'); // Getting the candidate's name.
+    aux.clear();
+
+    line >> partyName; // Getting party's name.
+    Reader::trim(partyName);
+
+    getline(line, aux, ';'); // Getting coalition, if there is one.
+
+    std::size_t pos = aux.find("-");
+    if (pos != string::npos)
+    {
+        coalitionName = aux.substr(++pos); // Getting coalition's name.
+        Reader::trim(coalitionName);
+    }
+    else // If theres no coalition, it's name will be seted as the party's name.
+    {
+        coalitionName = partyName;
+    }
+
+    line >> votes; // Getting the candidate's votes.
+    line.ignore(1, ';');
+    getline(line, percent); // Getting the candidate's percent of votes.
+
+    cout << "Name: " << name << "Party: " << partyName << "Coalition: " << coalitionName << "Votes: " << votes << "Percent: " << percent << endl;
+
+    // Getting / Setting the candidate's coalition:
+    if (coalitions->find(coalitionName) == coalitions->end()) // Checking if the coalition already exists.
+    {
+        (*coalitions)[coalitionName] = new Coalition(); // If not, a new one is created.
+        (*coalitions)[coalitionName]->setName(coalitionName);
+    }
+    coalition = coalitions->find(coalitionName)->second;
+
+    // Getting / Setting the candidate's party:
+    for (Party *p : coalition->getParties())
+    {
+        if (p->getName() == partyName) // Checking if the party already exists.
         {
+            party = p;
             break;
         }
-        if (aux.find("*")) // Incrementing the number of vacancies if an elected candidate is found.
+        else // If not, a new one is created.
         {
-            vacancies++;
-            elected = true; // Marking the candidate as elected.
+            party = new Party(partyName, *coalition);
+            break;
         }
-        else // Else, marking candidate as non elected.
-            elected = false;
-
-        getline(line, aux, ';');  // Skipping the candidate's number.
-        getline(line, name, ';'); // Getting the candidate's name.
-        aux.clear();
-
-        line >> party;  // Getting party's name.
-        trim(party);
-
-        getline(line, aux, ';');    // Getting coalition, if there is one.
-
-        std::size_t pos = aux.find("-");
-        if (pos != string::npos)
-        {
-            coalition = aux.substr(++pos);  // Getting coalition's name.
-            trim(coalition);
-        }
-        else    // If theres no coalition, it's name will be seted as the party's name.
-        {
-            coalition = party;
-        }
-
-        line >> votes; // Getting the candidate's votes.
-        line.ignore(1,';');
-        getline(line, percent); // Getting the candidate's percent of votes.
-
-        if(coalitions->find(coalition) == coalitions->end())    // Checking if the coalition already exists.
-        {
-            (*coalitions)[coalition] = new Coalition();     // If not, a new one is created.
-            (*coalitions)[coalition]->setName(coalition);
-        }
-        temp = coalitions->find(coalition)->second;
-
-        if(temp->getParties().find() == temp->getParties().end())    // Checking if the coalition already exists.
-        {
-            (*coalitions)[coalition] = new Coalition();     // If not, a new one is created.
-            (*coalitions)[coalition]->setName(coalition);
-        }
-        temp = coalitions->find(coalition)->second;
-
-        (*coalitions)[coalition]->addCandidate(name, party, votes, percent, elected); // Adding the line's candidate to the coalition
     }
-    return new Election(&coalitions,vacancies);
+
+    cand = new Candidate(name, *party, votes, percent, elected); // Creating this line candidate.
+
+    coalition->addCandidate(*cand); // Adding the candidate to the coalition.
+    // }
+    return new Election(coalitions, vacancies);
 }
 
-static inline void ltrim(std::string &s)
+inline void Reader::ltrim(std::string &s)
 {
     s.erase(s.begin(), std::find_if(s.begin(), s.end(), [](int ch) {
                 return !std::isspace(ch);
             }));
 }
 
-static inline void rtrim(std::string &s)
+inline void Reader::rtrim(std::string &s)
 {
     s.erase(std::find_if(s.rbegin(), s.rend(), [](int ch) {
                 return !std::isspace(ch);
@@ -112,7 +128,7 @@ static inline void rtrim(std::string &s)
             s.end());
 }
 
-static inline void trim(std::string &s)
+inline void Reader::trim(std::string &s)
 {
     ltrim(s);
     rtrim(s);

@@ -51,7 +51,7 @@ const Party &Candidate::getParty() const
 
 void Candidate::setParty(const Party &party)
 {
-    this->party = (Party *) &party;
+    this->party = (Party *)&party;
 }
 
 const int Candidate::getVotes() const
@@ -91,7 +91,7 @@ string Candidate::toString()
 
     Party p = this->getParty();
     string c = p.getCoalition().getName();
-    if(p.getName() != c)
+    if (p.getName() != c)
     {
         ret << " - Coligação: " << c;
     }

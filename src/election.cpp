@@ -30,7 +30,7 @@ Election::Election(map<string, Coalition *> *coalitions, const int vacancies)
 
 Election::~Election()
 {
-    for (Candidate *c: mostVoted)
+    for (Candidate *c : mostVoted)
     {
         delete c;
     }
@@ -46,42 +46,156 @@ Election::~Election()
     delete coalitions;
 }
 
-string Election::numberOfVacancies() const
+stringstream Election::numberOfVacancies() const
 {
-
+    stringstream ret;
+    ret << "Número de vagas: " << vacancies;
+    return ret;
 }
 
-string Election::electedCandidates() const
+stringstream Election::electedCandidates() const
 {
+    stringstream ret;
+    ret << "Vereadores eleitos:" << endl;
 
+    for (int i = 0; i < vacancies; i++)
+    {
+        Candidate *c = mostVoted.at(i);
+        int p = i + 1;
+        ret << p << " - " << c->toString() << endl;
+    }
+
+    return ret;
 }
 
-string Election::mostVotedCandidates() const
+stringstream Election::mostVotedCandidates() const
 {
-    
+    stringstream ret;
+    ret << "Candidatos mais votados (em ordem decrescente de votação e respeitando número de vagas):" << endl;
+    int i = 1;
+
+    for (Candidate *c : mostVoted)
+    {
+        ret << i << " - " << c->toString() << endl;
+        i++;
+        if (i > vacancies)
+            break;
+    }
+    return ret;
 }
 
-string Election::electedByMajority() const
+stringstream Election::electedByMajority() const
 {
+    stringstream ret;
+    ret << "Teriam sido eleitos se a votação fosse majoritária, e não foram eleitos:" << endl;
+    ret << "(com sua posição no ranking de mais votados)" << endl;
 
+    for (int i = 0; i < vacancies; i++)
+    {
+        Candidate *c = mostVoted.at(i);
+        if (!c->getElected())
+        {
+            int p = i + 1;
+            ret << p << " - " << c->toString() << endl;
+        }
+    }
+
+    return ret;
 }
 
-string Election::electedByProportion() const
+stringstream Election::electedByProportion() const
 {
+    stringstream ret;
+    ret << "Eleitos, que se beneficiaram do sistema proporcional:" << endl;
+    ret << "(com sua posição no ranking de mais votados)" << endl;
 
+    for (int i = vacancies; i < mostVoted.size(); i++)
+    {
+        Candidate *c = mostVoted.at(i);
+        if (c->getElected())
+        {
+            int p = i + 1;
+            ret << p << " - " << c->toString() << endl;
+        }
+    }
+
+    return ret;
 }
 
-string Election::votesByCoalition() const
+stringstream Election::votesByCoalition() const
 {
+    stringstream ret;
+    ret << "Votação (nominal) das coligações e número de candidatos eleitos:" << endl;
 
+    vector<Coalition *> cList;
+
+    for (map<string, Coalition *>::iterator it = coalitions->begin(); it != coalitions->end(); it++)
+    {
+        cList.push_back(it->second);
+    }
+
+    sort(cList.begin(), cList.end(), Coalition::compare);
+
+    for (int i = 0; i < cList.size(); i++)
+    {
+        int p = i + 1;
+        ret << p << " - Coligação: ";
+
+        Coalition *c = cList.at(i);
+        ret << c->getName() << ", " << c->getVotes() << " votos, ";
+
+        int e = 0; // Elected candidates counter
+        for (Party *party : c->getParties())
+            for (Candidate *candidate : party->getCandidates())
+                if (candidate->getElected())
+                    e++;
+        ret << (e >= 2) ? (e + " candidatos eleitos") : (e + " candidato eleito");
+        ret << endl;
+    }
+
+    return ret;
 }
 
-string Election::votesByParty() const
+stringstream Election::votesByParty() const
 {
+    stringstream ret;
+    ret << "Votação (nominal) dos partidos e número de candidatos eleitos:" << endl;
 
+    vector<Party *> pList;
+
+    for (map<string, Coalition *>::iterator it = coalitions->begin(); it != coalitions->end(); it++)
+    {
+        for (Party *party : it->second->getParties())
+        {
+            pList.push_back(party);
+        }
+    }
+
+    sort(pList.begin(), pList.end(), Party::compare);
+
+    int amountOfParties = 1;
+    for (Party *party : pList)
+    {
+        ret << amountOfParties++ << " " << party->getName() << ", " << party->getVotes() << " votos, ";
+        int e = 0;
+        for (Candidate *candidate : party->getCandidates())
+            if (candidate->getElected())
+                e++;
+        ret << (e >= 2) ? (e + " candidatos eleitos") : (e + " candidato eleito");
+        ret << endl;
+    }
+
+    return ret;
 }
 
 int Election::amountOfVotes() const
 {
+    int votes = 0;
 
+    for (map<string, Coalition *>::iterator it = coalitions->begin(); it != coalitions->end(); it++)
+    {
+        votes += it->second->getVotes();
+    }
+
+    return votes;
 }

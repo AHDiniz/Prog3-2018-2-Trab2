@@ -22,13 +22,13 @@ class Party;
 
 class Candidate
 {
-    string name; // The candidate's name
-    Party *party; // The candidate's party
-    int votes; // The amount of votes
+    string name;    // The candidate's name
+    Party *party;   // The candidate's party
+    int votes;      // The amount of votes
     string percent; // The percentage of valid votes
-    bool elected; // Tells if the candidate was elected or not
+    bool elected;   // Tells if the candidate was elected or not
 
-public:
+  public:
     /**
      * Candidate's constructor method:
      * 

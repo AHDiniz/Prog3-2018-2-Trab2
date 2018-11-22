@@ -11,12 +11,23 @@
 #include <string>
 #include "../include/coalition.h"
 #include "../include/election.h"
+#include "../include/reader.h"
 
 Coalition *Funcao(map<string, Coalition *> *coalitions, string s);
-Candidate *Funcao2(Candidate &c);
 
 int main(int argc, char const *argv[])
 {
+    string filepath = argv[1], encoding;
+
+    if (argc == 2)
+        encoding = "UTF-8";
+    else
+        encoding = argv[2];
+
+    // Election *election = Reader::readFile(filepath, encoding);
+
+    // delete election;
+
     // Currently only tests:
 
     string b = "BOLO";
@@ -30,10 +41,9 @@ int main(int argc, char const *argv[])
     // coalition2.setName(b);
 
     // Testando um trecho de reader
-    
+
     temp = Funcao(coalitions, pp);
     temp2 = Funcao(coalitions, b);
-    
 
     Party pqp("PQP", *temp);
     Party pnsc("PNSC", *temp);
@@ -47,7 +57,6 @@ int main(int argc, char const *argv[])
     temp->addCandidate(c2);
     temp2->addCandidate(cenoura);
 
-
     for (map<string, Coalition *>::iterator coIt = coalitions->begin(); coIt != coalitions->end(); coIt++)
     {
         cout << coIt->second->toString() << endl;
@@ -56,18 +65,18 @@ int main(int argc, char const *argv[])
     // cout << temp->toString() << endl;
     // cout << temp2->toString() << endl;
 
-    for (map<string, Coalition *>::iterator coIt = coalitions->begin(); coIt != coalitions->end(); coIt++)
-    {
-        delete coIt->second;
-    }
-    delete coalitions;
+    // for (map<string, Coalition *>::iterator coIt = coalitions->begin(); coIt != coalitions->end(); coIt++)
+    // {
+    //     delete coIt->second;
+    // }
+    // delete coalitions;
 
     return 0;
 }
 
 Coalition *Funcao(map<string, Coalition *> *coalitions, string s)
 {
-    if(coalitions->find(s) == coalitions->end())
+    if (coalitions->find(s) == coalitions->end())
     {
         (*coalitions)[s] = new Coalition();
         (*coalitions)[s]->setName(s);

@@ -14,6 +14,7 @@
 #include <map>
 #include <vector>
 #include <string>
+#include <sstream>
 #include "coalition.h"
 #include "party.h"
 #include "candidate.h"
@@ -22,12 +23,12 @@ using namespace std;
 
 class Election
 {
-private:
+  private:
     map<string, Coalition *> *coalitions; // Map with every coalition in the election
-    vector<Candidate *> mostVoted; // List of candidates ordered by the number of votes
-    int vacancies; // Number of vacant positions/elected candidates
+    vector<Candidate *> mostVoted;        // List of candidates ordered by the number of votes
+    int vacancies;                        // Number of vacant positions/elected candidates
 
-public:
+  public:
     /**
      * Election object's constructor method:
      * 
@@ -38,13 +39,13 @@ public:
     Election(map<string, Coalition *> *coalitions, const int vacancies);
     ~Election(); // Election destructor
 
-    string numberOfVacancies() const;
-    string electedCandidates() const;
-    string mostVotedCandidates() const;
-    string electedByMajority() const;
-    string electedByProportion() const;
-    string votesByCoalition() const;
-    string votesByParty() const;
+    stringstream numberOfVacancies() const;
+    stringstream electedCandidates() const;
+    stringstream mostVotedCandidates() const;
+    stringstream electedByMajority() const;
+    stringstream electedByProportion() const;
+    stringstream votesByCoalition() const;
+    stringstream votesByParty() const;
     int amountOfVotes() const;
 };
 

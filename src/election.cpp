@@ -46,14 +46,14 @@ Election::~Election()
     delete coalitions;
 }
 
-stringstream Election::numberOfVacancies() const
+string Election::numberOfVacancies() const
 {
     stringstream ret;
     ret << "Número de vagas: " << vacancies;
-    return ret;
+    return ret.str();
 }
 
-stringstream Election::electedCandidates() const
+string Election::electedCandidates() const
 {
     stringstream ret;
     ret << "Vereadores eleitos:" << endl;
@@ -65,10 +65,10 @@ stringstream Election::electedCandidates() const
         ret << p << " - " << c->toString() << endl;
     }
 
-    return ret;
+    return ret.str();
 }
 
-stringstream Election::mostVotedCandidates() const
+string Election::mostVotedCandidates() const
 {
     stringstream ret;
     ret << "Candidatos mais votados (em ordem decrescente de votação e respeitando número de vagas):" << endl;
@@ -81,10 +81,10 @@ stringstream Election::mostVotedCandidates() const
         if (i > vacancies)
             break;
     }
-    return ret;
+    return ret.str();
 }
 
-stringstream Election::electedByMajority() const
+string Election::electedByMajority() const
 {
     stringstream ret;
     ret << "Teriam sido eleitos se a votação fosse majoritária, e não foram eleitos:" << endl;
@@ -100,10 +100,10 @@ stringstream Election::electedByMajority() const
         }
     }
 
-    return ret;
+    return ret.str();
 }
 
-stringstream Election::electedByProportion() const
+string Election::electedByProportion() const
 {
     stringstream ret;
     ret << "Eleitos, que se beneficiaram do sistema proporcional:" << endl;
@@ -119,10 +119,10 @@ stringstream Election::electedByProportion() const
         }
     }
 
-    return ret;
+    return ret.str();
 }
 
-stringstream Election::votesByCoalition() const
+string Election::votesByCoalition() const
 {
     stringstream ret;
     ret << "Votação (nominal) das coligações e número de candidatos eleitos:" << endl;
@@ -153,10 +153,10 @@ stringstream Election::votesByCoalition() const
         ret << endl;
     }
 
-    return ret;
+    return ret.str();
 }
 
-stringstream Election::votesByParty() const
+string Election::votesByParty() const
 {
     stringstream ret;
     ret << "Votação (nominal) dos partidos e número de candidatos eleitos:" << endl;
@@ -185,7 +185,7 @@ stringstream Election::votesByParty() const
         ret << endl;
     }
 
-    return ret;
+    return ret.str();
 }
 
 int Election::amountOfVotes() const

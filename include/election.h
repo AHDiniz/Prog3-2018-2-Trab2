@@ -39,13 +39,13 @@ class Election
     Election(map<string, Coalition *> *coalitions, const int vacancies);
     ~Election(); // Election destructor
 
-    stringstream numberOfVacancies() const;
-    stringstream electedCandidates() const;
-    stringstream mostVotedCandidates() const;
-    stringstream electedByMajority() const;
-    stringstream electedByProportion() const;
-    stringstream votesByCoalition() const;
-    stringstream votesByParty() const;
+    string numberOfVacancies() const;
+    string electedCandidates() const;
+    string mostVotedCandidates() const;
+    string electedByMajority() const;
+    string electedByProportion() const;
+    string votesByCoalition() const;
+    string votesByParty() const;
     int amountOfVotes() const;
 };
 

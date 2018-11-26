@@ -109,7 +109,7 @@ string Election::electedByProportion() const
     ret << "Eleitos, que se beneficiaram do sistema proporcional:" << endl;
     ret << "(com sua posição no ranking de mais votados)" << endl;
 
-    for (int i = vacancies; i < mostVoted.size(); i++)
+    for (unsigned i = vacancies; i < mostVoted.size(); i++)
     {
         Candidate *c = mostVoted.at(i);
         if (c->getElected())
@@ -136,7 +136,7 @@ string Election::votesByCoalition() const
 
     sort(cList.begin(), cList.end(), Coalition::compare);
 
-    for (int i = 0; i < cList.size(); i++)
+    for (unsigned i = 0; i < cList.size(); i++)
     {
         int p = i + 1;
         ret << p << " - Coligação: ";

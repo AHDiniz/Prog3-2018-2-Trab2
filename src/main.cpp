@@ -9,7 +9,7 @@
 
 #include <iostream>
 #include <string>
-#include "../include/coalition.h"
+// #include "../include/coalition.h"
 #include "../include/election.h"
 #include "../include/reader.h"
 
@@ -45,6 +45,8 @@ int main(int argc, char const *argv[])
     temp = Funcao(coalitions, pp);
     temp2 = Funcao(coalitions, b);
 
+    Election *election = new Election(coalitions,2);
+
     Party pqp("PQP", *temp);
     Party pnsc("PNSC", *temp);
     Party bolo("BOLO", *temp2);
@@ -56,6 +58,15 @@ int main(int argc, char const *argv[])
     temp->addCandidate(c1);
     temp->addCandidate(c2);
     temp2->addCandidate(cenoura);
+
+    cout << election->numberOfVacancies() << endl; // Printing the number of vacant positions
+    cout << election->electedCandidates() << endl; // Printing the elected candidates
+    cout << election->mostVotedCandidates() << endl; // Printing the most voted candidates
+    cout << election->electedByMajority() << endl; // Printing the candidates that would be elected by majority but weren't
+    cout << election->electedByProportion() << endl; // Printing the candidates elected by proportion that would't be elected by majority
+    cout << election->votesByCoalition() << endl; // Printing the amount of votes for every coalition
+    cout << election->votesByParty() << endl; // Printing the amount of votes for every party
+    cout << "Total de votos nominais: " << election->amountOfVotes() << endl; // Printing the total of nominal votes
 
     for (map<string, Coalition *>::iterator coIt = coalitions->begin(); coIt != coalitions->end(); coIt++)
     {
@@ -70,6 +81,8 @@ int main(int argc, char const *argv[])
     //     delete coIt->second;
     // }
     // delete coalitions;
+
+    delete election;
 
     return 0;
 }

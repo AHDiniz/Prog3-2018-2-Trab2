@@ -45,19 +45,24 @@ int main(int argc, char const *argv[])
     temp = Funcao(coalitions, pp);
     temp2 = Funcao(coalitions, b);
 
+    Party *pqp = new Party("PQP", *temp);
+    Party *pnsc = new Party("PNSC", *temp);
+    Party *bolo = new Party("BOLO", *temp2);
+
+    Candidate *c1 = new Candidate("Alan Herculano Diniz", *pqp, 100, "0.3", true);
+    Candidate *c2 = new Candidate("Rafael Belmock Pedruzzi", *pnsc, 100, "0.3", true);
+    Candidate *cenoura = new Candidate("Bolo de Cenoura", *bolo, 350, "25%", false);
+
+    temp->addCandidate(*c1);
+    temp->addCandidate(*c2);
+    temp2->addCandidate(*cenoura);
+
+    // for (map<string, Coalition *>::iterator coIt = coalitions->begin(); coIt != coalitions->end(); coIt++)
+    // {
+    //     cout << coIt->second->getName() << endl << coIt->second->toString() << endl;
+    // }
+
     Election *election = new Election(coalitions,2);
-
-    Party pqp("PQP", *temp);
-    Party pnsc("PNSC", *temp);
-    Party bolo("BOLO", *temp2);
-
-    Candidate c1("Alan Herculano Diniz", pqp, 100, "0.3", true);
-    Candidate c2("Rafael Belmock Pedruzzi", pnsc, 100, "0.3", true);
-    Candidate cenoura("Bolo de Cenoura", bolo, 350, "25%", false);
-
-    temp->addCandidate(c1);
-    temp->addCandidate(c2);
-    temp2->addCandidate(cenoura);
 
     cout << election->numberOfVacancies() << endl; // Printing the number of vacant positions
     cout << election->electedCandidates() << endl; // Printing the elected candidates
@@ -68,10 +73,10 @@ int main(int argc, char const *argv[])
     cout << election->votesByParty() << endl; // Printing the amount of votes for every party
     cout << "Total de votos nominais: " << election->amountOfVotes() << endl; // Printing the total of nominal votes
 
-    for (map<string, Coalition *>::iterator coIt = coalitions->begin(); coIt != coalitions->end(); coIt++)
-    {
-        cout << coIt->second->toString() << endl;
-    }
+    // for (map<string, Coalition *>::iterator coIt = coalitions->begin(); coIt != coalitions->end(); coIt++)
+    // {
+    //     cout << coIt->second->toString() << endl;
+    // }
 
     // cout << temp->toString() << endl;
     // cout << temp2->toString() << endl;

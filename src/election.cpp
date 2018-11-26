@@ -10,7 +10,7 @@
 #include <algorithm>
 #include "../include/election.h"
 
-Election::Election(map<string, Coalition *> *coalitions, const int vacancies)
+Election::Election(map<string, Coalition *> *coalitions, const unsigned vacancies)
 {
     this->coalitions = coalitions;
     this->vacancies = vacancies;
@@ -49,7 +49,7 @@ Election::~Election()
 string Election::numberOfVacancies() const
 {
     stringstream ret;
-    ret << "Número de vagas: " << vacancies;
+    ret << "Número de vagas: " << vacancies << endl;
     return ret.str();
 }
 
@@ -58,11 +58,13 @@ string Election::electedCandidates() const
     stringstream ret;
     ret << "Vereadores eleitos:" << endl;
 
-    for (int i = 0; i < vacancies; i++)
+    unsigned i = 0;
+    for (Candidate *c : mostVoted)
     {
-        Candidate *c = mostVoted.at(i);
-        int p = i + 1;
-        ret << p << " - " << c->toString() << endl;
+        if (i == vacancies)
+            break;
+        if (c->getElected())
+            ret << ++i << " - " << c->toString() << endl;
     }
 
     return ret.str();
@@ -72,12 +74,11 @@ string Election::mostVotedCandidates() const
 {
     stringstream ret;
     ret << "Candidatos mais votados (em ordem decrescente de votação e respeitando número de vagas):" << endl;
-    int i = 1;
 
+    unsigned i = 1;
     for (Candidate *c : mostVoted)
     {
-        ret << i << " - " << c->toString() << endl;
-        i++;
+        ret << i++ << " - " << c->toString() << endl;
         if (i > vacancies)
             break;
     }
@@ -90,13 +91,14 @@ string Election::electedByMajority() const
     ret << "Teriam sido eleitos se a votação fosse majoritária, e não foram eleitos:" << endl;
     ret << "(com sua posição no ranking de mais votados)" << endl;
 
-    for (int i = 0; i < vacancies; i++)
+    unsigned i = 0;
+    for (Candidate *c : mostVoted)
     {
-        Candidate *c = mostVoted.at(i);
+        if (i == vacancies)
+            break;
         if (!c->getElected())
         {
-            int p = i + 1;
-            ret << p << " - " << c->toString() << endl;
+            ret << ++i << " - " << c->toString() << endl;
         }
     }
 
@@ -109,14 +111,14 @@ string Election::electedByProportion() const
     ret << "Eleitos, que se beneficiaram do sistema proporcional:" << endl;
     ret << "(com sua posição no ranking de mais votados)" << endl;
 
-    for (unsigned i = vacancies; i < mostVoted.size(); i++)
+    unsigned i = 1;
+    for (Candidate *c : mostVoted)
     {
-        Candidate *c = mostVoted.at(i);
-        if (c->getElected())
+        if (c->getElected() && i > vacancies)
         {
-            int p = i + 1;
-            ret << p << " - " << c->toString() << endl;
+            ret << i << " - " << c->toString() << endl;
         }
+        i++;
     }
 
     return ret.str();
@@ -136,12 +138,11 @@ string Election::votesByCoalition() const
 
     sort(cList.begin(), cList.end(), Coalition::compare);
 
-    for (unsigned i = 0; i < cList.size(); i++)
+    unsigned i = 0;
+    for (Coalition *c : cList)
     {
-        int p = i + 1;
-        ret << p << " - Coligação: ";
+        ret << ++i << " - Coligação: ";
 
-        Coalition *c = cList.at(i);
         ret << c->getName() << ", " << c->getVotes() << " votos, ";
 
         int e = 0; // Elected candidates counter
@@ -149,8 +150,8 @@ string Election::votesByCoalition() const
             for (Candidate *candidate : party->getCandidates())
                 if (candidate->getElected())
                     e++;
-        ret << (e >= 2) ? (e + " candidatos eleitos") : (e + " candidato eleito");
-        ret << endl;
+        string s = (e >= 2) ? " candidatos eleitos" : " candidato eleito";
+        ret << e << s << endl;
     }
 
     return ret.str();
@@ -180,9 +181,9 @@ string Election::votesByParty() const
         int e = 0;
         for (Candidate *candidate : party->getCandidates())
             if (candidate->getElected())
-                e++;
-        ret << (e >= 2) ? (e + " candidatos eleitos") : (e + " candidato eleito");
-        ret << endl;
+                ++e;
+        string s = (e >= 2) ? " candidatos eleitos" : " candidato eleito";
+        ret << e << s << endl;
     }
 
     return ret.str();

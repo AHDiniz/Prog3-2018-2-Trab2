@@ -26,7 +26,7 @@ class Election
   private:
     map<string, Coalition *> *coalitions; // Map with every coalition in the election
     vector<Candidate *> mostVoted;        // List of candidates ordered by the number of votes
-    int vacancies;                        // Number of vacant positions/elected candidates
+    unsigned vacancies;                        // Number of vacant positions/elected candidates
 
   public:
     /**
@@ -36,7 +36,7 @@ class Election
      * Output: an election object
      * Conditions: if new is used, remember to destroy the structure
      */
-    Election(map<string, Coalition *> *coalitions, const int vacancies);
+    Election(map<string, Coalition *> *coalitions, const unsigned vacancies);
     ~Election(); // Election destructor
 
     string numberOfVacancies() const;

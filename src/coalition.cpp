@@ -63,6 +63,7 @@ void Coalition::addCandidate(Candidate &candidate)
         Party *p = (Party *)*position;
         p->addCandidate(candidate);
     }
+    this->votes += candidate.getVotes();
 }
 
 string Coalition::toString()

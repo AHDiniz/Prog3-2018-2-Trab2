@@ -19,29 +19,36 @@
 
 Election *Reader::readFile(const string filePath, const string encoding)
 {
+    cout << "Path: " << filePath << endl << "Encoding: " << encoding << endl;
+
     map<string, Coalition *> *coalitions = new map<string, Coalition *>; // Map with all coalitions.
     bool elected;                                                        // Mark elected candidates.
     string aux, name, coalitionName, partyName, percent;                 // Auxiliar reading variables.
     int votes;                                                           // Vote counter.
-    int vacancies = 0;                                                   // Number of vacancies.
+    unsigned vacancies = 0;                                              // Number of vacancies.
     Coalition *coalition;                                                // Auxiliar variables.
     Party *party;
     Candidate *cand;
     ifstream in;
 
-    locale brLocale("pt_BR." + encoding);
+    cout << "Starting locale..." << endl;
+
+    aux = "pt_BR." + encoding;
+    cout << "Aux = " << aux << endl;
+    locale brasilLocale(aux);
+    aux.clear();
 
     cout << "Abrindo arquivo..." << endl;
 
     in.open(filePath);
-    //in.imbue(brLocale);
+    //in.imbue(brasilLocale);
     getline(in, aux); // Skipping the header.
 
     // while (getline(in, aux))
     getline(in, aux);
     // {
-    stringstream line(aux);
-    line.imbue(brLocale);
+    istringstream line(aux);
+    line.imbue(brasilLocale);
 
     getline(line, aux, ';'); // Getting the identification number.
     if (aux.find("#"))       // Break the loop if the section of valid candidates end.
@@ -60,19 +67,24 @@ Election *Reader::readFile(const string filePath, const string encoding)
     getline(line, name, ';'); // Getting the candidate's name.
     aux.clear();
 
-    line >> partyName; // Getting party's name.
-    Reader::trim(partyName);
+    // getline(line, partyName, ';');
+    // Reader::trim(partyName);
 
-    getline(line, aux, ';'); // Getting coalition, if there is one.
+    getline(line, aux, ';'); // Getting party and coalition's name.
 
     std::size_t pos = aux.find("-");
     if (pos != string::npos)
     {
-        coalitionName = aux.substr(++pos); // Getting coalition's name.
+        stringstream pcstream(aux);
+        pcstream >> partyName;
+        pcstream >> coalitionName;  // Skipping '-'.
+        getline(line, coalitionName, ';');  // Getting coalition's name.
+        // coalitionName = aux.substr(++pos); 
         Reader::trim(coalitionName);
     }
-    else // If theres no coalition, it's name will be seted as the party's name.
+    else // If there's no coalition, both names will be seted as the party's name.
     {
+        partyName = aux;
         coalitionName = partyName;
     }
 
@@ -80,7 +92,7 @@ Election *Reader::readFile(const string filePath, const string encoding)
     line.ignore(1, ';');
     getline(line, percent); // Getting the candidate's percent of votes.
 
-    cout << "Name: " << name << "Party: " << partyName << "Coalition: " << coalitionName << "Votes: " << votes << "Percent: " << percent << endl;
+    cout << "Name: " << name << " Party: " << partyName << " Coalition: " << coalitionName << " Votes: " << votes << " Percent: " << percent << endl;
 
     // Getting / Setting the candidate's coalition:
     if (coalitions->find(coalitionName) == coalitions->end()) // Checking if the coalition already exists.

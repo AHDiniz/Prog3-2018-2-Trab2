@@ -19,18 +19,22 @@ else
 	TARGET = trab2
 endif
 
+SOURCES = $(wildcard $(SRC)/*.cpp)
+
+EXE = $(BIN)/$(TARGET)
+
 INPUT = ./2018-02-trab2/testes/capela/in/divulga.csv
 
-compile: $(BIN)/$(TARGET)
+compile: $(EXE)
 
-$(BIN)/$(TARGET): $(wildcard $(SRC)/*.cpp)
+$(EXE): $(SOURCES)
 	$(CC) -o $@ $^ $(FLAGS)
 
 test: $(SRC)/main.cpp $(SRC)/party.cpp $(SRC)/candidate.cpp $(SRC)/coalition.cpp
 	$(CC) -o $(BIN)/$(TARGET) $^ $(FLAGS)
 
-run: $(BIN)/$(TARGET)
-	./$(BIN)/$(TARGET) $(INPUT)
+run: $(EXE)
+	./$(EXE) $(INPUT)
 
 clean:
 	rm $(BIN)/*.o

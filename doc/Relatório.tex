@@ -102,40 +102,32 @@
 
 	\chapter*{Introdução}
 	\addcontentsline{toc}{chapter}{Introdução}
-Neste segundo trabalho de implementação da disciplina de Programação III, foi necessário criar um leitor de arquivos de extensão CSV para retirar dados sobre eleições para vereadores. Para isso, foi necessário utilizar os conceitos de Programação Orientada a Objetos vistos em sala de aula. Para essa implementação, foi utilizada a linguagem de programação C++, que possui uma base forte de orientação a objetos.
+Neste segundo trabalho de implementação da disciplina de Programação III, foi necessário criar um leitor de arquivos de extensão CSV para retirar dados sobre eleições para vereadores. Para isso, foi necessário utilizar os conceitos de Programação Orientada a Objetos vistos em sala de aula. Para essa implementação, foi utilizada a linguagem de programação C++, que possui uma base forte de orientação a objetos. Com isso, foi possível fazer com que o programa o mínimo de alocação dinâmica de memória possível, graças às características da linguagem relativas a criação de objetos.
 
     \newpage
-    \chapter{DESENVOLVIMENTO}
-Neste capítulo, será descrita a implementação das classes utilizadas para o desenvolvimento do trabalho. Essas classes são as seguintes: Candidato, Partido, Coligação, Leitor e Eleição.
+    \chapter{Desenvolvimento}
+Neste capítulo, será descrita a implementação das classes utilizadas para o desenvolvimento do trabalho. Essas classes são as seguintes: Candidato, Partido, Coligação, Leitor e Eleição. Além de comentar a existência de bugs conhecidos no programa.
 
 	\section{Leitor}
-O Leitor é responsável por abrir o arquivo CSV, escaneá-lo e interpretá-lo para então utilizar os dados lidos para instanciar objetos de outras classes. A operação de leitura retorna um objeto da classe Eleição.
+O Leitor, como o nome diz, é responsável por abrir o arquivo CSV, escaneá-lo e interpretá-lo para então utilizar os dados obtidos para instanciar objetos de outras classes. A operação de leitura retorna um objeto da classe Eleição. Por possuir esse caráter simples, é uma classe com apenas um método estático de relevância que lê o arquivo dado.
 
 	\section{Eleição}
-Eleição é a classe responsável por processar os dados lidos pelo Leitor para poder fazer a verificação de informações como: candidatos mais votados, quantidade de votos por partido e por coligação, candidatos eleitos, candidatos que não foram eleitos por causa do sistema proporcional e assim por diante.
+Eleição é a classe responsável por processar os dados lidos pelo Leitor para poder fazer a verificação de informações como: candidatos mais votados, quantidade de votos por partido e por coligação, candidatos eleitos, candidatos que não foram eleitos por causa do sistema proporcional e assim por diante. Cada método da classe representa um dos resultados desejados para a saída. Para poder determinar esses resultados, um objeto da classe Eleição possui um mapa de strings e Coligações e um vetor para guardar os candidatos mais votados na eleição.
 
 	\section{Coligação}
-Um objeto da classe Coligação é aquele que possui e manipula informações sobre uma coleção de partidos, como quais partidos estão na Coligação e quantos votos essa Coligação possui. Também possui uma função de comparação para permitir a ordenação entre coligações.
+Um objeto da classe Coligação é aquele que possui e manipula informações sobre uma coleção de partidos, como quais partidos estão na Coligação e quantos votos essa Coligação possui. Também possui uma função de comparação para permitir a ordenação entre coligações. As funcionalidades mais importantes de um objeto Coligação envolvem adicionar um Candidato e seu Partido à Coligação e converter seus dados para uma string.
 
 	\section{Partido}
-Um objeto da classe Partido é análogo à Coligação, porém com uma coleção de candidatos em vez de partidos e um ponteiro para um objeto da classe coligação.
+Um objeto da classe Partido é análogo à Coligação, porém com uma coleção de candidatos em vez de partidos e um ponteiro para um objeto da classe Coligação.
 
 	\section{Candidato}
 A classe Candidato representa uma pessoa que se candidata a uma eleição, que está filiada a um partido e que possui uma certa quantidade de votos. Assim como em coligação e em partido, essa classe também possui uma função de comparação.
-
-	\section{main}
-É a classe com o método de ponto de entrada do programa, que chama os métodos de outras classes e objetos para que o programa faça o que é necessário.
 
 	\section{Bugs Conhecidos}
 Até o momento da entrega deste trabalho, não foi possível para os autores identificar qualquer problema ou bug no programa.
 
     \newpage
-    \section{CONSIDERAÇÕES FINAIS}
+    \chapter{Considerações Finais}
 Com o desenvolvimento deste projeto, percebe-se a utilidade e a praticidade do uso do paradigma de orientação a objetos para o desenvolvimento de programas.
-
-
-	\begin{thebibliography}{5}
-	\bibitem{tag} Autor, Nome do, \textit{Nome da obra.}
-	\end{thebibliography}
 
 \end{document}

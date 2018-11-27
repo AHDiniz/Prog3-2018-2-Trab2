@@ -33,10 +33,10 @@ Election *Reader::readFile(const string filePath, const string encoding)
 
     cout << "Starting locale..." << endl;
 
+    // setlocale(LC_ALL, "");
     aux = "pt_BR." + encoding;
     cout << "Aux = " << aux << endl;
-    // locale brasilLocale(aux);
-    locale brasilLocale("pt_BR.UTF-8");
+    locale brasilLocale(aux);
     aux.clear();
 
     cout << "Abrindo arquivo..." << endl;

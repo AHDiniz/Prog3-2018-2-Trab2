@@ -38,9 +38,10 @@ class Candidate
      * Side effects: a new Candidate is created, dynamically if new is used
      */
     Candidate(const string &name, Party &party, int votes, const string &percent, bool elected);
+	// Candidate's default constructor:
     Candidate(int v = 0, const string p = "0%", bool e = false);
+	// Candidate's copy constructor:
     Candidate(Candidate &c);
-    // ~Candidate() { delete party; }
 
     // Candidate's name getter:
     const string &getName() const;
@@ -62,7 +63,9 @@ class Candidate
     const bool getElected() const;
     // Candidate's elected bool setter:
     void setElected(const bool elected);
+    // Candidate's converter method to string:
     string toString();
+    // Candidate's comparator:
     static bool compare(const Candidate *a, const Candidate *b);
 };
 

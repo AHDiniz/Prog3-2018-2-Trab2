@@ -39,7 +39,9 @@ class Party
      * Side effects: new party created, dynamically if new is used
      */
     Party(const string &name, Coalition &coalition);
+	// Party's defaut constructor
     Party(const string name = "");
+	// Party's copy constructor:
     Party(const Party &p);
     ~Party()
     {
@@ -62,6 +64,7 @@ class Party
     const unordered_set<Candidate *> &getCandidates() const;
     // Adding a candidate to the set:
     void addCandidate(Candidate &candidate);
+	// Comparation method:
     static bool compare(const Party *a, const Party *b);
 };
 

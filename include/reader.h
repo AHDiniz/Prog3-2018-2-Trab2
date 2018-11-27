@@ -18,9 +18,18 @@ using namespace std;
 class Reader
 {
   public:
-    static Election *readFile(const string filePath, const string encoding);
+    /**
+     * Static method that reads a file, given it's location, with a given encoding. The file must have the format of the divulga.csv reports given by the brazilian Top Electoral Court (TSE).
+     * 
+     * Inputs: the location of the file that will be read and the encoding used to write the file.
+     * Output: a new election object
+     * Conditions: file existent
+     * Side effects: new election and all it's coalitions, parties and candidates created.
+     */
+	static Election *readFile(const string filePath, const string encoding);
 
   private:
+	// Trim methods:
     static inline void ltrim(string &s);
     static inline void rtrim(string &s);
     static inline void trim(string &s);

@@ -101,5 +101,6 @@ string Candidate::toString()
 
 bool Candidate::compare(const Candidate *a, const Candidate *b)
 {
+    // Compares candidates by number of votes.
     return (a != b) && a->getVotes() > b->getVotes();
 }

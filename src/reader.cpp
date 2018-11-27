@@ -29,7 +29,7 @@ Election *Reader::readFile(const string filePath, const string encoding)
     Candidate *cand;
     ifstream in;
 
-    locale brasilLocale("pt_BR." + encoding);
+    locale brasilLocale("pt_BR." + encoding);   // Seting locale.
 
     in.open(filePath);
     getline(in, aux); // Skipping the header.
@@ -40,8 +40,7 @@ Election *Reader::readFile(const string filePath, const string encoding)
         line.imbue(brasilLocale);
 
         getline(line, aux, ';'); // Getting the identification number.
-        cout << "First aux: " << aux << endl;
-        if (aux.at(0) == '#')       // Break the loop if the section of valid candidates end.
+        if (aux.at(0) == '#')    // Break the loop if the section of valid candidates end.
         {
             break;
         }
@@ -55,11 +54,12 @@ Election *Reader::readFile(const string filePath, const string encoding)
 
         getline(line, aux, ';');  // Skipping the candidate's number.
         getline(line, name, ';'); // Getting the candidate's name.
+
         aux.clear();
 
         getline(line, aux, ';'); // Getting party and coalition's name.
 
-        std::size_t pos = aux.find("-");
+        std::size_t pos = aux.find("-"); // Serching if theres a coalition.
         if (pos != string::npos)
         {
             stringstream pcstream(aux);
@@ -78,10 +78,7 @@ Election *Reader::readFile(const string filePath, const string encoding)
         line.ignore(1, ';');
         getline(line, percent); // Getting the candidate's percent of votes.
 
-        cout << "Vacancies = " << vacancies << "Name: " << name << " Party: " << partyName << " Coalition: " << coalitionName << " Votes: " << votes << " Percent: " << percent << endl;
-
         // Getting / Setting the candidate's coalition:
-        cout << "Getting coalition..." << endl;
         if (coalitions->find(coalitionName) == coalitions->end()) // Checking if the coalition already exists.
         {
             (*coalitions)[coalitionName] = new Coalition(); // If not, a new one is created.
@@ -89,8 +86,6 @@ Election *Reader::readFile(const string filePath, const string encoding)
         }
         coalition = coalitions->find(coalitionName)->second;
 
-        cout << "Coalition: " << coalition->getName() << endl;
-        cout << "Getting party..." << endl;
         // Getting / Setting the candidate's party:
         party = NULL;
         for (Party *p : coalition->getParties())
@@ -104,14 +99,10 @@ Election *Reader::readFile(const string filePath, const string encoding)
         if (party == NULL)  // If no party was found a new one is created.
             party = new Party(partyName, *coalition);
 
-        cout << "Party: " << party->getName() << endl;
-        cout << "Creating candidate..." << endl;
         cand = new Candidate(name, *party, votes, percent, elected); // Creating this line candidate.
 
-        cout << "Adding candidate..." << endl;
         coalition->addCandidate(*cand); // Adding the candidate to the coalition.
     }
-    cout << "Returning..." << endl;
     return new Election(coalitions, vacancies);
 }
 

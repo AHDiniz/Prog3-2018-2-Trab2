@@ -12,9 +12,10 @@
 
 Election::Election(map<string, Coalition *> *coalitions, const unsigned vacancies)
 {
-    this->coalitions = coalitions;
-    this->vacancies = vacancies;
+    this->coalitions = coalitions;  // Setting coalitions set.
+    this->vacancies = vacancies;    // Setting number of vacancies.
 
+    // Copying each candidate to the mostVoted vector:
     for (map<string, Coalition *>::iterator coIt = coalitions->begin(); coIt != coalitions->end(); coIt++)
     {
         for (const Party *p : coIt->second->getParties())
@@ -25,16 +26,19 @@ Election::Election(map<string, Coalition *> *coalitions, const unsigned vacancie
             }
         }
     }
+    // Sorting mostVoted:
     sort(mostVoted.begin(), mostVoted.end(), Candidate::compare);
 }
 
 Election::~Election()
 {
+    // Deleting each candidate:
     for (Candidate *c : mostVoted)
     {
         delete c;
     }
 
+    // Deleting each party and coalition:
     for (map<string, Coalition *>::iterator coIt = coalitions->begin(); coIt != coalitions->end(); coIt++)
     {
         for (const Party *p : coIt->second->getParties())
@@ -43,6 +47,7 @@ Election::~Election()
         }
         delete coIt->second;
     }
+    // Deleting coalitions set:
     delete coalitions;
 }
 

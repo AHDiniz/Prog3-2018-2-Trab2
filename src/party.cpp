@@ -67,11 +67,12 @@ const unordered_set<Candidate *> &Party::getCandidates() const
 void Party::addCandidate(Candidate &candidate)
 {
     candidates->insert(&candidate);
-    votes += candidate.getVotes();
-    candidate.setParty(*this);
+    votes += candidate.getVotes();  // Updating party's number of votes.
+    candidate.setParty(*this);      // Setting this as candidadte's party.
 }
 
 bool Party::compare(const Party *a, const Party *b)
 {
+    // Compare parties by number of votes.
     return (a != b) && a->getVotes() > b->getVotes();
 }

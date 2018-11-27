@@ -19,6 +19,8 @@ else
 	TARGET = trab2
 endif
 
+INPUT = ./2018-02-trab2/testes/capela/in/capela.csv
+
 compile: $(BIN)/$(TARGET)
 
 $(BIN)/$(TARGET): $(wildcard $(SRC)/*.cpp)
@@ -28,7 +30,7 @@ test: $(SRC)/main.cpp $(SRC)/party.cpp $(SRC)/candidate.cpp $(SRC)/coalition.cpp
 	$(CC) -o $(BIN)/$(TARGET) $^ $(FLAGS)
 
 run: $(BIN)/$(TARGET)
-	./$(BIN)/$(TARGET)
+	./$(BIN)/$(TARGET) $(INPUT)
 
 clean:
 	rm $(BIN)/*.o

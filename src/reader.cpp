@@ -79,7 +79,7 @@ Election *Reader::readFile(const string filePath, const string encoding)
         stringstream pcstream(aux);
         pcstream >> partyName;
         pcstream >> coalitionName;  // Skipping '-'.
-        getline(line, coalitionName, ';');  // Getting coalition's name.
+        getline(pcstream, coalitionName, ';');  // Getting coalition's name.
         // coalitionName = aux.substr(++pos); 
         Reader::trim(coalitionName);
     }
@@ -89,8 +89,12 @@ Election *Reader::readFile(const string filePath, const string encoding)
         coalitionName = partyName;
     }
 
-    line >> votes; // Getting the candidate's votes.
-    line.ignore(1, ';');
+    // line >> votes; // Getting the candidate's votes.
+    // line.ignore(1, ';');
+    getline(line, aux);
+    istringstream vote(aux);
+    vote.imbue(brasilLocale);
+    vote >> votes;
     getline(line, percent); // Getting the candidate's percent of votes.
 
     cout << "Name: " << name << " Party: " << partyName << " Coalition: " << coalitionName << " Votes: " << votes << " Percent: " << percent << endl;

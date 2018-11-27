@@ -24,18 +24,15 @@ class Candidate;
 class Coalition
 {
     string name;
-    unordered_set<Party *> parties;
+    unordered_set<Party *> *parties = new unordered_set<Party *>();
     int votes;
 
   public:
     Coalition(string n = "");
-    // ~Coalition()
-    // {
-    //     for(Party *p: parties)
-    //     {
-    //         delete p;
-    //     }
-    // }
+    ~Coalition()
+    {
+        delete parties;
+    }
 
     const string &getName() const;
     void setName(const string &name);

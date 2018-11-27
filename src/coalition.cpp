@@ -44,17 +44,16 @@ void Coalition::setVotes(const int &votes)
 
 const unordered_set<Party *> &Coalition::getParties() const
 {
-    return parties;
+    return *parties;
 }
 
 void Coalition::addCandidate(Candidate &candidate)
 {
-    std::unordered_set<Party *>::const_iterator position = this->parties.find((Party *)&(candidate.getParty())); // Looking for the party in the set
-    if (position == this->parties.end())
+    std::unordered_set<Party *>::const_iterator position = this->parties->find((Party *)&(candidate.getParty())); // Looking for the party in the set
+    if (position == this->parties->end())
     {
-        this->parties.insert((Party *)&(candidate.getParty()));
-        //this->name = this->name + candidate.getParty().getName() + " ";
-        Party *p = *(this->parties.find((Party *)&(candidate.getParty())));
+        this->parties->insert((Party *)&(candidate.getParty()));
+        Party *p = *(this->parties->find((Party *)&(candidate.getParty())));
         p->setCoalition(*this);
         p->addCandidate(candidate);
     }
@@ -70,9 +69,7 @@ string Coalition::toString()
 {
     stringstream ret;
 
-    // ret << this->name << endl;
-
-    for (Party *p : this->parties)
+    for (Party *p : *(this->parties))
     {
         for (Candidate *c : p->getCandidates())
         {

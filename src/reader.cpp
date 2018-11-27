@@ -34,17 +34,18 @@ Election *Reader::readFile(const string filePath, const string encoding)
     in.open(filePath);
     getline(in, aux); // Skipping the header.
 
-    // while (getline(in, aux))
-    // {
+    while (getline(in, aux))
+    {
         istringstream line(aux);
         line.imbue(brasilLocale);
 
         getline(line, aux, ';'); // Getting the identification number.
-        if (aux.find("#"))       // Break the loop if the section of valid candidates end.
+        cout << "First aux: " << aux << endl;
+        if (aux.at(0) == '#')       // Break the loop if the section of valid candidates end.
         {
-            // break;
+            break;
         }
-        if (aux.find("*")) // Incrementing the number of vacancies if an elected candidate is found.
+        if (aux.at(0) == '*') // Incrementing the number of vacancies if an elected candidate is found.
         {
             vacancies++;
             elected = true; // Marking the candidate as elected.
@@ -56,19 +57,15 @@ Election *Reader::readFile(const string filePath, const string encoding)
         getline(line, name, ';'); // Getting the candidate's name.
         aux.clear();
 
-        // getline(line, partyName, ';');
-        // Reader::trim(partyName);
-
         getline(line, aux, ';'); // Getting party and coalition's name.
 
         std::size_t pos = aux.find("-");
         if (pos != string::npos)
         {
             stringstream pcstream(aux);
-            pcstream >> partyName;
-            pcstream >> coalitionName;  // Skipping '-'.
+            getline(pcstream, partyName, '-');  // Getting party's name
+            Reader::trim(partyName);
             getline(pcstream, coalitionName, ';');  // Getting coalition's name.
-            // coalitionName = aux.substr(++pos); 
             Reader::trim(coalitionName);
         }
         else // If there's no coalition, both names will be seted as the party's name.
@@ -79,14 +76,9 @@ Election *Reader::readFile(const string filePath, const string encoding)
 
         line >> votes; // Getting the candidate's votes.
         line.ignore(1, ';');
-        // getline(line, aux);
-        // istringstream vote(aux);
-        // vote.imbue(brasilLocale);
-        // vote >> votes;
         getline(line, percent); // Getting the candidate's percent of votes.
-        // line >> percent;
 
-        cout << "Name: " << name << " Party: " << partyName << " Coalition: " << coalitionName << " Votes: " << votes << " Percent: " << percent << endl;
+        cout << "Vacancies = " << vacancies << "Name: " << name << " Party: " << partyName << " Coalition: " << coalitionName << " Votes: " << votes << " Percent: " << percent << endl;
 
         // Getting / Setting the candidate's coalition:
         cout << "Getting coalition..." << endl;
@@ -97,8 +89,10 @@ Election *Reader::readFile(const string filePath, const string encoding)
         }
         coalition = coalitions->find(coalitionName)->second;
 
+        cout << "Coalition: " << coalition->getName() << endl;
         cout << "Getting party..." << endl;
         // Getting / Setting the candidate's party:
+        party = NULL;
         for (Party *p : coalition->getParties())
         {
             if (p->getName() == partyName) // Checking if the party already exists.
@@ -106,19 +100,17 @@ Election *Reader::readFile(const string filePath, const string encoding)
                 party = p;
                 break;
             }
-            else // If not, a new one is created.
-            {
-                party = new Party(partyName, *coalition);
-                break;
-            }
         }
+        if (party == NULL)  // If no party was found a new one is created.
+            party = new Party(partyName, *coalition);
 
+        cout << "Party: " << party->getName() << endl;
         cout << "Creating candidate..." << endl;
         cand = new Candidate(name, *party, votes, percent, elected); // Creating this line candidate.
 
         cout << "Adding candidate..." << endl;
         coalition->addCandidate(*cand); // Adding the candidate to the coalition.
-    // }
+    }
     cout << "Returning..." << endl;
     return new Election(coalitions, vacancies);
 }

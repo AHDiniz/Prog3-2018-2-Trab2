@@ -19,7 +19,7 @@ else
 	TARGET = trab2
 endif
 
-INPUT = ./2018-02-trab2/testes/capela/in/capela.csv
+INPUT = ./2018-02-trab2/testes/capela/in/divulga.csv
 
 compile: $(BIN)/$(TARGET)
 

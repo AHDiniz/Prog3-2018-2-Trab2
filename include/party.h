@@ -27,7 +27,7 @@ class Party
     Coalition *coalition;                  // The name of the party's coalition
     string name;                           // The name of the party
     int votes = 0;                         // The amount of votes of the party
-    unordered_set<Candidate *> candidates; // The candidates of the party
+    unordered_set<Candidate *> *candidates = new unordered_set<Candidate *>(); // The candidates of the party
 
   public:
     /**
@@ -39,15 +39,12 @@ class Party
      * Side effects: new party created, dynamically if new is used
      */
     Party(const string &name, Coalition &coalition);
-    Party();
+    Party(const string name = "");
     Party(const Party &p);
-    // ~Party()
-    // {
-    //     for(Candidate *c: candidates)
-    //     {
-    //         delete c;
-    //     }
-    // }
+    ~Party()
+    {
+        delete candidates;
+    }
 
     // Coalition name getter:
     Coalition &getCoalition() const;

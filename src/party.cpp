@@ -15,12 +15,11 @@ Party::Party(const string &name, Coalition &coalition)
 {
     this->setName(name);
     this->setCoalition(coalition);
-    // candidates = new unordered_set<Candidate *>();
 }
 
-Party::Party()
+Party::Party(const string name)
 {
-    // candidates = new unordered_set<Candidate *>();
+    this->name = name;
 }
 
 Party::Party(const Party &p)
@@ -62,12 +61,12 @@ void Party::setVotes(const int votes)
 
 const unordered_set<Candidate *> &Party::getCandidates() const
 {
-    return candidates;
+    return *candidates;
 }
 
 void Party::addCandidate(Candidate &candidate)
 {
-    candidates.insert(&candidate);
+    candidates->insert(&candidate);
     votes += candidate.getVotes();
     candidate.setParty(*this);
 }

@@ -8,7 +8,7 @@
  */
 
 #include <algorithm>
-#include "../include/election.h"
+#include "election.h"
 
 Election::Election(map<string, Coalition *> *coalitions, const unsigned vacancies)
 {

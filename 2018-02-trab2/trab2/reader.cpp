@@ -15,7 +15,7 @@
 #include <algorithm>
 #include <functional>
 
-#include "../include/reader.h"
+#include "reader.h"
 
 Election *Reader::readFile(const string filePath, const string encoding)
 {

@@ -23,7 +23,7 @@ SOURCES = $(wildcard $(SRC)/*.cpp)
 
 EXE = $(BIN)/$(TARGET)
 
-INPUT = ./2018-02-trab2/testes/capela/in/divulga.csv
+INPUT = ./2018-02-trab2/testes/vilavelha/in/divulga.csv
 
 compile: $(EXE)
 
